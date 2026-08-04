@@ -1,6 +1,6 @@
 // Executador: apenas chama o inicializador do bot
 const { initializeBot } = require('./bot_src');
-const { sendToGroup, sendImageToGroup, sendToTargetGroup, getTargetGroupId } = require('./bot_src/messaging');
+const { sendToGroup, sendImageToGroup, sendToTargetGroup, getTargetGroupId, sendToPhone } = require('./bot_src/messaging');
 
 async function startBot() {
     await initializeBot();
@@ -11,7 +11,8 @@ module.exports = {
     sendToGroup,
     sendImageToGroup,
     sendToTargetGroup,
-    getTargetGroupId
+    getTargetGroupId,
+    sendToPhone
 };
 
 if (require.main === module) {

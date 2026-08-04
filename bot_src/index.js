@@ -4,7 +4,7 @@ const { Boom } = require('@hapi/boom');
 const qrcode = require('qrcode-terminal');
 const pino = require('pino');
 
-const { setActiveSocket } = require('./socket');
+const { setActiveSocket, setConnecting, setConnected, setDisconnected } = require('./socket');
 const { processCommand, executeCommand } = require('./commands');
 
 async function initializeBot() {
@@ -15,10 +15,11 @@ async function initializeBot() {
         version,
         auth: state,
         printQRInTerminal: false,
-        logger: pino({ level: 'silent' }) // <- corta os logs JSON do baileys
+        logger: pino({ level: 'silent' })
     });
 
     setActiveSocket(sock);
+    setConnecting();
     sock.ev.on('creds.update', saveCreds);
 
     sock.ev.on('messages.upsert', async ({ messages, type }) => {
@@ -30,6 +31,10 @@ async function initializeBot() {
         const sender = msg.key.remoteJid;
         const text = msg.message.conversation || msg.message.extendedTextMessage?.text;
 
+        if (sender && !sender.endsWith('@g.us')) {
+            console.log(`[MSG PV] De: ${sender} | Texto: "${(text || '').slice(0, 100)}"`);
+        }
+
         const commandName = processCommand(text);
         if (commandName) {
             await executeCommand(commandName, sender, sock);
@@ -40,23 +45,36 @@ async function initializeBot() {
         const { connection, lastDisconnect, qr } = update;
 
         if (qr) {
+            console.log('[QR CODE] Escaneie o QR Code exibido no terminal.');
             qrcode.generate(qr, { small: true });
-            console.log('Escaneie o QR Code exibido no terminal.');
+        }
+
+        if (connection === 'open') {
+            setConnected();
+            console.log('[BOT] Conectado ao WhatsApp');
         }
 
         if (connection === 'close') {
-            const shouldReconnect = (lastDisconnect?.error instanceof Boom)
-                ? lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut
-                : true;
+            setDisconnected();
 
-            if (shouldReconnect) {
-                console.log('Reconectando bot...');
-                initializeBot().catch((error) => {
-                    console.error('Falha ao reconectar o bot:', error.message);
-                });
+            let reason = 'desconhecido';
+            if (lastDisconnect?.error instanceof Boom) {
+                const statusCode = lastDisconnect.error.output.statusCode;
+                reason = DisconnectReason[statusCode] || `codigo ${statusCode}`;
+            } else if (lastDisconnect?.error) {
+                reason = lastDisconnect.error.message || String(lastDisconnect.error);
             }
-        } else if (connection === 'open') {
-            console.log('Bot conectado com sucesso.');
+
+            console.log(`[BOT] Conexao fechada: ${reason}`);
+
+            const delay = reason === 'loggedOut' ? 1000 : 3000;
+
+            console.log(`[BOT] Reconectando em ${delay / 1000}s...`);
+            setTimeout(() => {
+                initializeBot().catch((error) => {
+                    console.error('[BOT] Falha ao reconectar:', error.message);
+                });
+            }, delay);
         }
     });
 

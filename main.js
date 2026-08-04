@@ -8,12 +8,14 @@ const {
     sendToGroup,
     sendImageToGroup,
     sendToTargetGroup,
-    getTargetGroupId
+    getTargetGroupId,
+    sendToPhone
 } = require('./bot');
 
 const registerLondonEndpoints = require('./endpoints/fichas_london');
 const registerTesteEndpoints = require('./endpoints/fichas_teste');
 const registerDiretoriaEndpoints = require('./endpoints/fichas_diretoria_teste');
+const registerAuthEndpoints = require('./endpoints/auth');
 
 const PORT = Number(process.env.PORT || 30404);
 
@@ -163,7 +165,12 @@ async function bootstrap() {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
-    // 3. Health check (Render/Uptime)
+    // 3. Root redirect para login
+    app.get('/', (_req, res) => {
+        res.redirect('/auth/login');
+    });
+
+    // 4. Health check (Render/Uptime)
     app.get('/healthz', (_req, res) => {
 
         res.status(200).json({
@@ -179,7 +186,8 @@ async function bootstrap() {
         sendToGroup,
         sendImageToGroup,
         sendToTargetGroup,
-        getTargetGroupId
+        getTargetGroupId,
+        sendToPhone
     };
 
     // 5. Registrar endpoints
@@ -189,10 +197,13 @@ async function bootstrap() {
 
     const diretoria = registerDiretoriaEndpoints(app, deps);
 
+    const auth = registerAuthEndpoints(app, deps);
+
     const registeredRoutes = [
         ...london.registeredRoutes,
         ...teste.registeredRoutes,
-        ...diretoria.registeredRoutes
+        ...diretoria.registeredRoutes,
+        ...auth.registeredRoutes
     ];
 
     // 6. Iniciar servidor HTTP
