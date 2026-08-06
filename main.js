@@ -16,6 +16,7 @@ const registerLondonEndpoints = require('./endpoints/fichas_london');
 const registerTesteEndpoints = require('./endpoints/fichas_teste');
 const registerDiretoriaEndpoints = require('./endpoints/fichas_diretoria_teste');
 const registerAuthEndpoints = require('./endpoints/auth');
+const registerAlrquivesEndpoints = require('./endpoints/alrquives');
 
 const PORT = Number(process.env.PORT || 30404);
 
@@ -199,11 +200,14 @@ async function bootstrap() {
 
     const auth = registerAuthEndpoints(app, deps);
 
+    const alrquives = registerAlrquivesEndpoints(app);
+
     const registeredRoutes = [
         ...london.registeredRoutes,
         ...teste.registeredRoutes,
         ...diretoria.registeredRoutes,
-        ...auth.registeredRoutes
+        ...auth.registeredRoutes,
+        ...alrquives.registeredRoutes
     ];
 
     // 6. Iniciar servidor HTTP

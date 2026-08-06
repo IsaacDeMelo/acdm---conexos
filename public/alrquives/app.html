@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ACDM - Academy Click</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@600&family=Pinyon+Script&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <style>
+        /* ==================== VARIÁVEIS GLOBAIS ==================== */
+        :root {
+            --bg-deep: #0a0510;
+            --bg-color: #0b0914;
+            --input-bg: #3a2e42;
+            --input-placeholder: #8a7b92;
+            --btn-red: #9e3c3c;
+            --line-red: #b83b3b;
+            --text-white: #ffffff;
+            --text-gray: #a39ca8;
+            --text-gold: #bda15f;
+            --text-dark: #121212;
+            --brand-yellow: #dfb841;
+            --input-dark-bg: #3a2e42;
+            --input-light-bg: #e6e6e6;
+            --input-light-placeholder: #333333;
+            --brand-cyan: #5ec4ff;
+            --card-gray: #b0b0b0;
+            --dot-inactive: #222b40;
+            --text-blue: #7cb2f8;
+            --text-yellow: #f8db60;
+            --btn-entrar-bg: #2d1b54;
+            --card-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ==================== SISTEMA DE TELAS ==================== */
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding-bottom: 110px;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==================== NAVBAR INFERIOR (ESTILO PRINT) ==================== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: var(--bg-deep);
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            z-index: 300;
+        }
+
+        .nav-item {
+            flex: 1;
+            color: #7a7585;
+            font-size: 10px;
+            font-weight: 500;
+            text-align: center;
+            padding-bottom: 18px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav-item.active {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 12px;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        /* CORES POR ABA ATIVA */
+        .nav-item.active[data-screen="screen-licencas"] {
+            background-color: #e65245;
+            box-shadow: 0 -4px 12px rgba(230, 82, 69, 0.4);
+        }
+
+        .nav-item.active[data-screen="screen-assinermos"] {
+            background-color: #dfb841;
+            color: #121212;
+            box-shadow: 0 -4px 12px rgba(223, 184, 65, 0.4);
+        }
+
+        .nav-item.active[data-screen="screen-certificer"] {
+            background-color: #5ec4ff;
+            box-shadow: 0 -4px 12px rgba(94, 196, 255, 0.4);
+        }
+
+        .nav-item.active[data-screen="screen-home"] {
+            background-color: #ffffff;
+            color: #121212;
+            box-shadow: 0 -4px 12px rgba(255, 255, 255, 0.4);
+        }
+
+        .nav-item.active[data-screen="screen-instit"] {
+            background-color: #7a3ee8;
+            box-shadow: 0 -4px 12px rgba(122, 62, 232, 0.4);
+        }
+
+        /* ================================================================ */
+        /* ==================== TELA: HOME (INÍCIO) ======================== */
+        /* ================================================================ */
+        #screen-home {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* FUNDO OFICIAL (30% - 40% - 30%) */
+        #screen-home .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        #screen-home .bg-pattern::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30%;
+            height: 100%;
+            background-image: url('src/fundo.png');
+            background-size: cover;
+            background-position: right center;
+            background-repeat: no-repeat;
+        }
+
+        #screen-home .bg-pattern::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 100%;
+            background-image: url('src/fundo.png');
+            background-size: cover;
+            background-position: left center;
+            background-repeat: no-repeat;
+            transform: scaleX(-1);
+        }
+
+        #screen-home header {
+            width: 100%;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        #screen-home .header-btn {
+            position: absolute;
+            right: 40px;
+            background-color: var(--btn-entrar-bg);
+            color: var(--text-white);
+            text-decoration: none;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        #screen-home .header-btn:hover {
+            filter: brightness(1.2);
+        }
+
+        #screen-home .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #screen-home .logo-img {
+            transform: rotate(-45deg);
+            height: 45px;
+            width: auto;
+            margin-bottom: 5px;
+            object-fit: contain;
+        }
+
+        #screen-home main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        #screen-home h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        #screen-home h1 .highlight {
+            color: var(--text-yellow);
+        }
+
+        #screen-home .subtitle {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-align: center;
+            max-width: 450px;
+            line-height: 1.4;
+            margin-bottom: 25px;
+        }
+
+        #screen-home .subtitle .blue {
+            color: var(--text-blue);
+        }
+
+        #screen-home .subtitle .yellow {
+            color: var(--text-yellow);
+        }
+
+        /* CARROSSEL (SWIPER) */
+        #screen-home .swiper-container-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        #screen-home .swiper {
+            width: 100%;
+            padding-top: 30px;
+            padding-bottom: 50px;
+        }
+
+        #screen-home .swiper-slide {
+            width: 380px;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #screen-home .card-inner {
+            width: 100%;
+            height: 240px;
+            border-radius: var(--card-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+            position: relative;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(20px);
+        }
+
+        #screen-home .swiper-slide-active .card-inner {
+            transform: translateY(-20px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+        }
+
+        #screen-home .card-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            border-radius: var(--card-radius);
+        }
+
+        #screen-home .card-content-layer {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+        }
+
+        #screen-home .slide-red {
+            background: linear-gradient(135deg, #cc4a52 0%, #6e1c24 100%);
+        }
+
+        #screen-home .slide-purple {
+            background: linear-gradient(135deg, #cca4ff 0%, #462691 100%);
+        }
+
+        #screen-home .slide-yellow {
+            background: linear-gradient(135deg, #f2ebb4 0%, #a48232 100%);
+        }
+
+        #screen-home .mini-badge-img {
+            height: 40px;
+            width: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        #screen-home .swiper-slide-active .mini-badge-img {
+            opacity: 1;
+        }
+
+        #screen-home .swiper-pagination {
+            bottom: 0 !important;
+        }
+
+        #screen-home .swiper-pagination-bullet {
+            width: 8px;
+            height: 8px;
+            background-color: var(--dot-inactive);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        #screen-home .swiper-pagination-bullet-active {
+            width: 25px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #6ecbf5, #3582d9);
+        }
+
+        /* BOTÕES INFERIORES */
+        #screen-home .btn-primary {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            text-decoration: none;
+            padding: 12px 60px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        #screen-home .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        #screen-home .btn-mobile-entrar {
+            display: none;
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            #screen-home .bg-pattern::before,
+            #screen-home .bg-pattern::after {
+                display: none;
+            }
+
+            #screen-home .bg-pattern {
+                background-image: url('src/fundo.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                position: fixed;
+            }
+
+            #screen-home header {
+                padding: 15px;
+            }
+
+            #screen-home .header-btn {
+                display: none;
+            }
+
+            #screen-home h1 {
+                font-size: 1.8rem;
+            }
+
+            #screen-home .subtitle {
+                font-size: 0.75rem;
+                max-width: 280px;
+            }
+
+            #screen-home .swiper-slide {
+                width: 210px;
+                height: 360px;
+            }
+
+            #screen-home .card-inner {
+                height: 320px;
+            }
+
+            #screen-home .btn-primary {
+                padding: 12px 40px;
+                font-size: 0.95rem;
+                max-width: 220px;
+            }
+
+            #screen-home .btn-mobile-entrar {
+                display: block;
+            }
+        }
+
+        /* ================================================================ */
+        /* ==================== TELA: LICENÇAS ============================= */
+        /* ================================================================ */
+        #screen-licencas {
+            background-color: var(--bg-deep);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+        }
+
+        #screen-licencas header {
+            width: 100%;
+            padding: 25px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #screen-licencas .logo-icon {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        #screen-licencas .header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        #screen-licencas .header-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        #screen-licencas .header-text p {
+            color: var(--text-gray);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        #screen-licencas .header-text .highlight {
+            color: var(--text-gold);
+            font-weight: 600;
+        }
+
+        #screen-licencas .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        #screen-licencas .form-container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #screen-licencas .form-title-wrapper {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #screen-licencas .form-title-wrapper h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        #screen-licencas .red-line {
+            width: 100%;
+            height: 2px;
+            background-color: var(--line-red);
+            border-radius: 2px;
+        }
+
+        #screen-licencas form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        #screen-licencas .input-pill {
+            width: 100%;
+            height: 42px;
+            background-color: var(--input-bg);
+            border: none;
+            border-radius: 25px;
+            padding: 0 20px;
+            color: var(--text-white);
+            font-size: 0.75rem;
+            font-weight: 500;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        #screen-licencas .input-pill:focus {
+            background-color: #493b54;
+        }
+
+        #screen-licencas .input-pill::placeholder {
+            color: var(--input-placeholder);
+        }
+
+        #screen-licencas .input-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        #screen-licencas .input-row .input-pill:nth-child(1) {
+            flex: 0.45;
+            padding: 0 15px;
+        }
+
+        #screen-licencas .input-row .input-pill:nth-child(2) {
+            flex: 0.55;
+            padding: 0 15px;
+        }
+
+        #screen-licencas .btn-submit {
+            background-color: var(--btn-red);
+            color: var(--text-white);
+            border: none;
+            border-radius: 25px;
+            height: 44px;
+            padding: 0 35px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px auto 0 auto;
+            display: block;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        #screen-licencas .btn-submit:hover {
+            transform: scale(1.02);
+        }
+
+        #screen-licencas .btn-submit:active {
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 450px) {
+            #screen-licencas .input-pill {
+                font-size: 0.7rem;
+            }
+
+            #screen-licencas .form-container {
+                scale: 0.9;
+            }
+
+            #screen-licencas .form-title-wrapper h2 {
+                font-family: 'Montserrat', sans-serif;
+
+                margin-bottom: 8px;
+            }
+
+            #screen-licencas .form-title-wrapper {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* ================================================================ */
+        /* ==================== TELA: ASSINERMOS =========================== */
+        /* ================================================================ */
+        #screen-assinermos {
+            background-color: var(--bg-deep);
+            color: var(--input-bg);
+            font-family: 'Inter', sans-serif;
+        }
+
+        #screen-assinermos header {
+            width: 100%;
+            padding: 25px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #screen-assinermos .logo-icon {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        #screen-assinermos .header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        #screen-assinermos .header-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        #screen-assinermos .header-text p {
+            color: var(--text-gray);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        #screen-assinermos .header-text .highlight {
+            color: var(--text-gold);
+            font-weight: 600;
+        }
+
+        #screen-assinermos .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            padding-bottom: 60px;
+        }
+
+        #screen-assinermos .form-container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* CAIXA DE ASSINATURA (CAMADAS) */
+        #screen-assinermos .signature-box-wrapper {
+            position: relative;
+            width: 85%;
+            margin-bottom: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #screen-assinermos .signature-box-bg {
+            position: absolute;
+            background-color: var(--brand-yellow);
+            width: 104%;
+            height: 85%;
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+        #screen-assinermos .signature-box-front {
+            position: relative;
+            background-color: #ffffff;
+            width: 100%;
+            padding: 12px 20px 15px 20px;
+            border-radius: 8px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #screen-assinermos .signature-box-front h2 {
+            font-family: 'Pinyon Script', cursive;
+            color: #2b2b2b;
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+
+        #screen-assinermos .signature-line {
+            width: 70%;
+            height: 1px;
+            background-color: var(--line-red);
+        }
+
+        #screen-assinermos form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        #screen-assinermos .input-pill {
+            width: 100%;
+            height: 42px;
+            border: none;
+            border-radius: 25px;
+            padding: 0 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            outline: none;
+            transition: opacity 0.3s;
+        }
+
+        #screen-assinermos .hidden-file-input {
+            display: none;
+        }
+
+        #screen-assinermos .file-upload-label {
+            background-color: var(--input-dark-bg);
+            color: var(--input-placeholder);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #screen-assinermos .file-upload-label.has-file {
+            color: var(--text-white);
+            font-weight: 500;
+        }
+
+        #screen-assinermos .input-dark {
+            background-color: var(--input-dark-bg);
+            color: var(--input-placeholder);
+        }
+
+        #screen-assinermos .input-dark::placeholder {
+            color: var(--input-dark-placeholder);
+        }
+
+        #screen-assinermos .btn-yellow {
+            background-color: var(--brand-yellow);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 25px;
+            height: 42px;
+            padding: 0 35px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            max-width: 260px;
+            margin: 25px auto 0 auto;
+            display: block;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        #screen-assinermos .btn-yellow:hover {
+            transform: scale(1.03);
+        }
+
+        #screen-assinermos .btn-yellow:active {
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 450px) {
+            #screen-assinermos .form-container {
+                scale: 0.9;
+            }
+        }
+
+        /* ================================================================ */
+        /* ==================== TELA: CERTIFICER =========================== */
+        /* ================================================================ */
+        #screen-certificer {
+            background-color: var(--bg-deep);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        #screen-certificer header {
+            width: 100%;
+            padding: 25px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #screen-certificer .logo-icon {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        #screen-certificer .header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        #screen-certificer .header-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        #screen-certificer .header-text p {
+            color: var(--text-gray);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        #screen-certificer .header-text .highlight {
+            color: var(--text-gold);
+            font-weight: 600;
+        }
+
+        #screen-certificer .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px 60px 20px;
+        }
+
+        #screen-certificer .form-container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #screen-certificer .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* CARROSSEL (ESTRUTURA DUPLA) */
+        #screen-certificer .carousel-viewport {
+            width: 100%;
+            overflow: visible;
+            padding: 20px 0 10px 0;
+            margin-bottom: 10px;
+        }
+
+        #screen-certificer .carousel-track {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateX(0);
+        }
+
+        #screen-certificer .cert-card {
+            position: relative;
+            flex-shrink: 0;
+            width: 30%;
+            aspect-ratio: 1 / 1.5;
+            margin: 0 2%;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateY(12px);
+            opacity: 1;
+        }
+
+        #screen-certificer .cert-card.active {
+            transform: translateY(-20px);
+            opacity: 1;
+            cursor: default;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        #screen-certificer .cert-bg-cyan {
+            position: absolute;
+            top: -4px;
+            left: 0;
+            width: 100%;
+            height: 102%;
+            background-color: var(--brand-cyan);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        #screen-certificer .cert-fg-gray {
+            position: absolute;
+            top: 4px;
+            left: 3px;
+            right: 3px;
+            bottom: 0;
+            background-color: var(--card-gray);
+            border-radius: 12px;
+            z-index: 2;
+        }
+
+        /* PAGINAÇÃO */
+        #screen-certificer .pagination-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 35px;
+        }
+
+        #screen-certificer .dot {
+            height: 3px;
+            border-radius: 2px;
+            background-color: var(--dot-inactive);
+            transition: all 0.3s ease;
+        }
+
+        #screen-certificer .dot.inactive {
+            width: 12px;
+        }
+
+        #screen-certificer .dot.active {
+            width: 35px;
+            background-color: var(--brand-cyan);
+            box-shadow: 0 0 5px rgba(94, 196, 255, 0.5);
+        }
+
+        /* FORMULÁRIO E BOTÃO */
+        #screen-certificer form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        #screen-certificer .input-pill {
+            width: 100%;
+            height: 42px;
+            background-color: var(--input-bg);
+            color: var(--text-white);
+            border: none;
+            border-radius: 25px;
+            padding: 0 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        #screen-certificer .input-pill::placeholder {
+            color: var(--input-placeholder);
+        }
+
+        #screen-certificer .btn-cyan {
+            background-color: var(--brand-cyan);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 25px;
+            height: 42px;
+            padding: 0 35px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            max-width: 220px;
+            margin: 20px auto 0 auto;
+            display: block;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        #screen-certificer .btn-cyan:hover {
+            transform: scale(1.03);
+        }
+
+        #screen-certificer .btn-cyan:active {
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 450px) {
+            #screen-certificer .form-container {
+                scale: 0.9;
+            }
+        }
+
+        /* ==================== HEADER REDUZIDO NO MOBILE (≈20%) ==================== */
+        @media (max-width: 768px) {
+            #screen-home header {
+                padding: 12px 15px;
+            }
+
+            #screen-home .logo-img {
+                height: 36px;
+            }
+
+            #screen-licencas header,
+            #screen-assinermos header,
+            #screen-certificer header {
+                padding: 20px 16px;
+            }
+
+            #screen-licencas .logo-icon,
+            #screen-assinermos .logo-icon,
+            #screen-certificer .logo-icon {
+                height: 40px;
+            }
+
+            #screen-licencas .header-text h1,
+            #screen-assinermos .header-text h1,
+            #screen-certificer .header-text h1 {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================ TELA: HOME ============================ -->
+    <section id="screen-home" class="screen active"></section>
+
+    <!-- ============================ TELA: INSTIT ============================ -->
+    <section id="screen-instit" class="screen"></section>
+
+    <!-- ============================ TELA: LICENÇAS ============================ -->
+    <section id="screen-licencas" class="screen">
+
+        <header>
+            <img src="src/logo_grande.png" alt="Logo Academy" class="logo-icon">
+            <div class="header-text">
+                <h1>Instituto Academy Alquirves</h1>
+                <p>Olá Diretora <span class="highlight">Megalos Saey</span></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="form-container">
+
+                <div class="form-title-wrapper">
+                    <h2>EMITIR LICENÇA DE VALIDAÇÃO</h2>
+                    <div class="red-line"></div>
+                </div>
+
+                <form action="#" method="POST">
+                    <input type="text" class="input-pill" placeholder="Selecione o tipo de Licença Alquirves" name="tipo">
+
+                    <div class="input-row">
+                        <input type="text" class="input-pill" placeholder="ACDM ID do Licenciado" name="licenciado">
+                        <input type="text" class="input-pill" placeholder="INSTIT ou ACDM ID do Licenciante" name="licenciante">
+                    </div>
+
+                    <input type="text" class="input-pill" placeholder="Informe a Validade da Licença Alquirves" name="validade">
+
+                    <button type="submit" class="btn-submit">Emitir e Encaminhar</button>
+                </form>
+
+            </div>
+        </main>
+
+    </section>
+
+    <!-- ============================ TELA: ASSINERMOS ============================ -->
+    <section id="screen-assinermos" class="screen">
+
+        <header>
+            <img src="src/logo_grande.png" alt="Logo Academy" class="logo-icon">
+            <div class="header-text">
+                <h1>Instituto Academy Alquirves</h1>
+                <p>Olá Diretora <span class="highlight">Megalos Saey</span></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="form-container">
+
+                <!-- CAIXA DE ASSINATURA EM CAMADAS -->
+                <div class="signature-box-wrapper">
+                    <div class="signature-box-bg"></div>
+                    <div class="signature-box-front">
+                        <h2>Assinermos</h2>
+                        <div class="signature-line"></div>
+                    </div>
+                </div>
+
+                <form action="#" method="POST" enctype="multipart/form-data">
+
+                    <label for="doc-upload" class="input-pill file-upload-label">
+                        <span id="file-name">Selecione o documento para assinatura</span>
+                    </label>
+                    <input type="file" id="doc-upload" class="hidden-file-input" accept=".pdf,.doc,.docx,.png,.jpg">
+
+                    <input type="text" class="input-pill input-dark" placeholder="Informe a Validade do documento" name="validade">
+                    <input type="text" class="input-pill input-dark" placeholder="Informe o ACDM ID do assinante" name="assinante">
+
+                    <button type="submit" class="btn-yellow">Encaminhar Solicitação</button>
+                </form>
+
+            </div>
+        </main>
+
+    </section>
+
+    <!-- ============================ TELA: CERTIFICER ============================ -->
+    <section id="screen-certificer" class="screen">
+
+        <header>
+            <img src="src/logo_grande.png" alt="Logo Academy" class="logo-icon">
+            <div class="header-text">
+                <h1>Instituto Academy Alquirves</h1>
+                <p>Olá Diretora <span class="highlight">Megalos Saey</span></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="form-container">
+
+                <h2 class="page-title">EMITIR CERTIFICADO ACADEMY</h2>
+
+                <!-- CARROSSEL EM TRILHO COM CAIXAS SOBREPOSTAS -->
+                <div class="carousel-viewport" id="carouselViewport">
+                    <div class="carousel-track" id="carouselTrack">
+
+                        <div class="cert-card" onclick="goToSlide(0)">
+                            <div class="cert-bg-cyan"></div>
+                            <div class="cert-fg-gray"></div>
+                        </div>
+
+                        <div class="cert-card active" onclick="goToSlide(1)">
+                            <div class="cert-bg-cyan"></div>
+                            <div class="cert-fg-gray"></div>
+                        </div>
+
+                        <div class="cert-card" onclick="goToSlide(2)">
+                            <div class="cert-bg-cyan"></div>
+                            <div class="cert-fg-gray"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- PAGINAÇÃO -->
+                <div class="pagination-dots">
+                    <div class="dot inactive" id="dot0"></div>
+                    <div class="dot active" id="dot1"></div>
+                    <div class="dot inactive" id="dot2"></div>
+                </div>
+
+                <!-- FORMULÁRIO -->
+                <form action="#" method="POST">
+                    <input type="text" class="input-pill" placeholder="Nome do Outorgado" name="outorgado">
+                    <input type="text" class="input-pill" placeholder="Representante Titular" name="representante">
+                    <input type="text" class="input-pill" placeholder="Organização Certificante" name="organizacao">
+                    <input type="text" class="input-pill" placeholder="Validade do Certificado" name="validade">
+
+                    <button type="submit" class="btn-cyan">Assinar e Emitir</button>
+                </form>
+
+            </div>
+        </main>
+
+    </section>
+
+    <!-- ============================ NAVBAR INFERIOR ============================ -->
+    <nav class="bottom-nav">
+        <div class="nav-item" data-screen="screen-certificer">CERTIFICER</div>
+        <div class="nav-item" data-screen="screen-assinermos">ASSINERMOS</div>
+        <div class="nav-item" data-screen="screen-licencas">AVL</div>
+        <div class="nav-item active" data-screen="screen-home">HOME</div>
+        <div class="nav-item" data-screen="screen-instit">INSTIT</div>
+    </nav>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            /* ==================== SWIPER (HOME) ==================== */
+            var swiper = null;
+            if (document.querySelector('.mySwiper')) {
+                swiper = new Swiper(".mySwiper", {
+                    initialSlide: 1,
+                    effect: "coverflow",
+                    grabCursor: true,
+                    centeredSlides: true,
+                    slidesPerView: "auto",
+                    loop: true,
+                    autoplay: {
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    },
+                    coverflowEffect: {
+                        rotate: 0,
+                        stretch: -50,
+                        depth: 150,
+                        modifier: 1,
+                        slideShadows: false,
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                    on: {
+                        resize: function () {
+                            swiper.update();
+                        },
+                    },
+                });
+            }
+
+            /* ==================== NAVEGAÇÃO ENTRE TELAS ==================== */
+            var screens = document.querySelectorAll('.screen');
+            var navBtns = document.querySelectorAll('.nav-item');
+
+            function showScreen(id) {
+                screens.forEach(function (s) {
+                    s.classList.remove('active');
+                });
+
+                var target = document.getElementById(id);
+                if (target) {
+                    target.classList.add('active');
+                }
+
+                navBtns.forEach(function (b) {
+                    b.classList.toggle('active', b.getAttribute('data-screen') === id);
+                });
+
+                window.scrollTo(0, 0);
+
+                if (id === 'screen-home' && swiper) {
+                    swiper.update();
+                }
+            }
+
+            navBtns.forEach(function (b) {
+                b.addEventListener('click', function () {
+                    showScreen(b.getAttribute('data-screen'));
+                });
+            });
+
+            /* ==================== INPUT DE ARQUIVO (ASSINERMOS) ==================== */
+            var fileInput = document.getElementById('doc-upload');
+            if (fileInput) {
+                var fileNameSpan = document.getElementById('file-name');
+                var fileLabel = document.querySelector('#screen-assinermos .file-upload-label');
+                var originalText = fileNameSpan.textContent;
+
+                fileInput.addEventListener('change', function () {
+                    if (this.files && this.files.length > 0) {
+                        fileNameSpan.textContent = this.files[0].name;
+                        fileLabel.classList.add('has-file');
+                    } else {
+                        fileNameSpan.textContent = originalText;
+                        fileLabel.classList.remove('has-file');
+                    }
+                });
+            }
+
+            /* ==================== CARROSSEL (CERTIFICER) ==================== */
+            var currentIndex = 1;
+            var track = document.getElementById('carouselTrack');
+            var cards = document.querySelectorAll('#screen-certificer .cert-card');
+            var dots = document.querySelectorAll('#screen-certificer .dot');
+
+            window.goToSlide = function (index) {
+                if (index < 0) index = 0;
+                if (index > 2) index = 2;
+
+                currentIndex = index;
+
+                var offset = (1 - currentIndex) * 36;
+                track.style.transform = 'translateX(' + offset + '%)';
+
+                cards.forEach(function (card, i) {
+                    if (i === currentIndex) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+
+                dots.forEach(function (dot, i) {
+                    if (i === currentIndex) {
+                        dot.className = 'dot active';
+                    } else {
+                        dot.className = 'dot inactive';
+                    }
+                });
+            };
+
+            // SWIPE NO CELULAR
+            var startX = 0;
+            var viewport = document.getElementById('carouselViewport');
+
+            viewport.addEventListener('touchstart', function (e) {
+                startX = e.changedTouches[0].screenX;
+            });
+
+            viewport.addEventListener('touchend', function (e) {
+                var endX = e.changedTouches[0].screenX;
+
+                if (startX - endX > 40) {
+                    window.goToSlide(currentIndex + 1);
+                } else if (endX - startX > 40) {
+                    window.goToSlide(currentIndex - 1);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
