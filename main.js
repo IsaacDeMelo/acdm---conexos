@@ -1,7 +1,10 @@
 // Controlador: orquestra a API Express e o bot WhatsApp
 
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const {
     startBot,
@@ -17,6 +20,7 @@ const registerTesteEndpoints = require('./endpoints/fichas_teste');
 const registerDiretoriaEndpoints = require('./endpoints/fichas_diretoria_teste');
 const registerAuthEndpoints = require('./endpoints/auth');
 const registerAlrquivesEndpoints = require('./endpoints/alrquives');
+const { connectDb } = require('./db/mongo');
 
 const PORT = Number(process.env.PORT || 30404);
 
@@ -159,6 +163,16 @@ async function bootstrap() {
 
     setupHeartbeat();
 
+    // 0. Conectar no MongoDB compartilhado com a Oráculo
+    try {
+        await connectDb();
+    } catch (error) {
+        printTerminalAlert(
+            'FALHA_MONGO_CONNECT',
+            error?.stack || error?.message || String(error)
+        );
+    }
+
     // 1. Criar aplicação Express
     const app = express();
 
@@ -166,9 +180,13 @@ async function bootstrap() {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
-    // 3. Root redirect para login
-    app.get('/', (_req, res) => {
-        res.redirect('/auth/login');
+    // 3. Root: landing "Em breve" no instituto.academy; demais hosts redirecionam ao login
+    app.get('/', (req, res) => {
+        const host = String(req.headers.host || '').replace(/:\d+$/, '').toLowerCase();
+        if (host === 'instituto.academy' || host === 'www.instituto.academy') {
+            return res.sendFile(path.resolve(__dirname, 'public', 'instituto', 'index.html'));
+        }
+        return res.redirect('/auth/login');
     });
 
     // 4. Health check (Render/Uptime)
@@ -200,7 +218,7 @@ async function bootstrap() {
 
     const auth = registerAuthEndpoints(app, deps);
 
-    const alrquives = registerAlrquivesEndpoints(app);
+    const alrquives = registerAlrquivesEndpoints(app, deps);
 
     const registeredRoutes = [
         ...london.registeredRoutes,

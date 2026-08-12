@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -39,6 +40,19 @@
             --text-yellow: #f8db60;
             --btn-entrar-bg: #2d1b54;
             --card-radius: 12px;
+            --panel-bg: #150d1e;
+            --brand-coral: #e65245;
+            --filter-cyan: #60c4ff;
+            --filter-white: #ffffff;
+            --filter-purple: #8b4bff;
+            --filter-yellow: #dfb841;
+            --user-purple: #6a25e8;
+            --acc-dark: #3a2e42;
+            --acc-light: #f2f2f4;
+            --instit-banner: #bde5f8;
+            --instit-col-left: #746580;
+            --instit-col-right: #665773;
+            --instit-btn: #e6e6e8;
         }
 
         * {
@@ -146,321 +160,1266 @@
         }
 
         /* ================================================================ */
-        /* ==================== TELA: HOME (INÍCIO) ======================== */
+        /* ==================== TELA: HOME (DASHBOARD) ===================== */
         /* ================================================================ */
         #screen-home {
-            background-color: var(--bg-color);
+            background-color: var(--bg-deep);
             color: var(--text-white);
-            font-family: 'Montserrat', sans-serif;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* FUNDO OFICIAL (30% - 40% - 30%) */
-        #screen-home .bg-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.3;
-        }
-
-        #screen-home .bg-pattern::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 30%;
-            height: 100%;
-            background-image: url('src/fundo.png');
-            background-size: cover;
-            background-position: right center;
-            background-repeat: no-repeat;
-        }
-
-        #screen-home .bg-pattern::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 30%;
-            height: 100%;
-            background-image: url('src/fundo.png');
-            background-size: cover;
-            background-position: left center;
-            background-repeat: no-repeat;
-            transform: scaleX(-1);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100dvh;
+            padding-bottom: 0;
         }
 
         #screen-home header {
             width: 100%;
-            padding: 15px 40px;
+            padding: 20px 20px 10px 20px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            position: relative;
-            z-index: 1;
+            gap: 12px;
+            flex-shrink: 0;
         }
 
-        #screen-home .header-btn {
-            position: absolute;
-            right: 40px;
-            background-color: var(--btn-entrar-bg);
-            color: var(--text-white);
-            text-decoration: none;
-            padding: 8px 24px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        #screen-home .header-btn:hover {
-            filter: brightness(1.2);
-        }
-
-        #screen-home .logo-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        #screen-home .logo-img {
-            transform: rotate(-45deg);
+        #screen-home .logo-icon {
             height: 45px;
             width: auto;
-            margin-bottom: 5px;
             object-fit: contain;
         }
 
-        #screen-home main {
+        #screen-home .header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        #screen-home .header-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        #screen-home .header-text p {
+            color: var(--text-gray);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        #screen-home .header-text .highlight {
+            color: var(--text-gold);
+            font-weight: 600;
+        }
+
+        /* ==================== CONTEÚDO SCROLLÁVEL ==================== */
+        #screen-home .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px 16px 10px 16px;
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #screen-home .main-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* ==================== TOPO: GERENCIAMENTO & FILTROS ==================== */
+        #screen-home .top-dashboard {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        #screen-home .mgmt-card {
+            flex: 0.9;
+            background-color: var(--brand-coral);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #screen-home .mgmt-header {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            padding: 12px 0 30px 0;
+            color: #ffffff;
+        }
+
+        #screen-home .mgmt-body {
+            background-color: var(--panel-bg);
+            border-radius: 22px 22px 0 0;
+            margin-top: -16px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 16px 5px 15px 5px;
+            flex: 1;
+        }
+
+        #screen-home .stat-item {
+            text-align: center;
+        }
+
+        #screen-home .stat-num {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-gold);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+
+        #screen-home .stat-label {
+            font-size: 0.5rem;
+            color: var(--text-gray);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        #screen-home .filters-container {
+            flex: 1.1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        #screen-home .f-row-1 {
+            display: flex;
+            gap: 8px;
+            height: 50%;
+        }
+
+        #screen-home .f-row-2 {
+            display: flex;
+            gap: 8px;
+            height: 50%;
+        }
+
+        #screen-home .f-btn {
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #screen-home .f-cyan {
+            flex: 0.45;
+            background-color: var(--filter-cyan);
+            color: #121212;
+        }
+
+        #screen-home .f-white-double {
+            flex: 0.55;
+            background-color: var(--filter-white);
+            color: #121212;
+            display: flex;
+            flex-direction: row;
+            padding: 0;
+            border-radius: 10px;
+        }
+
+        #screen-home .f-white-col {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding-bottom: 40px;
+        }
+
+        #screen-home .f-divider {
+            width: 1px;
+            height: 60%;
+            background-color: #d1d1d1;
+            margin: auto 0;
+        }
+
+        #screen-home .f-purple {
+            flex: 1;
+            background-color: var(--filter-purple);
+            color: #ffffff;
+        }
+
+        #screen-home .f-yellow {
+            flex: 1;
+            background-color: var(--filter-yellow);
+            color: #121212;
+        }
+
+        #screen-home .f-coral {
+            flex: 1;
+            background-color: var(--brand-coral);
+            color: #ffffff;
+        }
+
+        #screen-home .f-num {
+            font-size: 0.95rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        #screen-home .f-label {
+            font-size: 0.45rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* ==================== MEIO: LISTAS AVL & CERTIFICADOS ==================== */
+        #screen-home .dual-lists {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 12px;
+            height: 290px;
+            margin-bottom: 20px;
+        }
+
+        #screen-home .inner-scroll {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-right: 2px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #screen-home .inner-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        #screen-home .avl-item {
+            background-color: var(--brand-coral);
+            border-radius: 10px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        #screen-home .cert-item {
+            background-color: var(--panel-bg);
+            border-radius: 10px;
+            padding: 8px 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        /* ==================== MINIATURA DO CERTIFICADO (CAMADAS) ==================== */
+        #screen-home .cert-img-placeholder {
             position: relative;
+            width: 42px;
+            height: 60px;
+            flex-shrink: 0;
+        }
+
+        #screen-home .cert-img-placeholder::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            height: 109%;
+            background-color: var(--filter-cyan);
+            border-radius: 4px;
             z-index: 1;
         }
 
-        #screen-home h1 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        #screen-home h1 .highlight {
-            color: var(--text-yellow);
-        }
-
-        #screen-home .subtitle {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-align: center;
-            max-width: 450px;
-            line-height: 1.4;
-            margin-bottom: 25px;
-        }
-
-        #screen-home .subtitle .blue {
-            color: var(--text-blue);
-        }
-
-        #screen-home .subtitle .yellow {
-            color: var(--text-yellow);
-        }
-
-        /* CARROSSEL (SWIPER) */
-        #screen-home .swiper-container-wrapper {
-            width: 100%;
-            max-width: 1100px;
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        #screen-home .swiper {
-            width: 100%;
-            padding-top: 30px;
-            padding-bottom: 50px;
-        }
-
-        #screen-home .swiper-slide {
-            width: 380px;
-            height: 280px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #screen-home .card-inner {
-            width: 100%;
-            height: 240px;
-            border-radius: var(--card-radius);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
-            position: relative;
-            overflow: visible;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translateY(20px);
-        }
-
-        #screen-home .swiper-slide-active .card-inner {
-            transform: translateY(-20px);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
-        }
-
-        #screen-home .card-bg-img {
+        #screen-home .cert-img-placeholder::after {
+            content: "";
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: -2px;
+            background-color: var(--card-gray);
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        #screen-home .cert-info {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        #screen-home .cert-info h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        #screen-home .cert-info span {
+            font-size: 0.55rem;
+            color: #cccccc;
+            line-height: 1.3;
+        }
+
+        #screen-home .cert-info .cert-role {
+            font-size: 0.55rem;
+            color: #8a6b9e;
+        }
+
+        #screen-home .cert-info .cert-date {
+            font-size: 0.45rem;
+            color: var(--brand-coral);
+            text-align: right;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* ==================== RODAPÉ: LISTA DE USUÁRIOS ==================== */
+        #screen-home .users-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        #screen-home .user-pill {
+            background-color: #ffffff;
+            border-radius: 30px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px 0 6px;
+            flex-shrink: 0;
+        }
+
+        #screen-home .user-pill.ghost {
+            visibility: hidden;
+            pointer-events: none;
+            height: 68px;
+        }
+
+        #screen-home .user-circle {
+            width: 36px;
+            height: 36px;
+            background-color: var(--user-purple);
+            border-radius: 50%;
+            margin-right: 8px;
+            flex-shrink: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #screen-home .user-initials {
+            color: #ffffff;
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+
+        #screen-home .user-avatar {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: 1;
-            border-radius: var(--card-radius);
+            border-radius: 50%;
         }
 
-        #screen-home .card-content-layer {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translate(-50%, 50%);
-            z-index: 5;
+        #screen-home .user-name-group {
             display: flex;
-            justify-content: center;
+            align-items: baseline;
+            gap: 4px;
+            flex: 1;
+            min-width: 0;
         }
 
-        #screen-home .slide-red {
-            background: linear-gradient(135deg, #cc4a52 0%, #6e1c24 100%);
+        #screen-home .user-name {
+            color: #121212;
+            font-size: 0.72rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        #screen-home .slide-purple {
-            background: linear-gradient(135deg, #cca4ff 0%, #462691 100%);
+        #screen-home .user-id {
+            color: #888888;
+            font-size: 0.55rem;
+            font-weight: 500;
+            font-style: italic;
+            flex-shrink: 0;
         }
 
-        #screen-home .slide-yellow {
-            background: linear-gradient(135deg, #f2ebb4 0%, #a48232 100%);
-        }
-
-        #screen-home .mini-badge-img {
-            height: 40px;
-            width: auto;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            object-fit: contain;
-            image-rendering: -webkit-optimize-contrast;
-        }
-
-        #screen-home .swiper-slide-active .mini-badge-img {
-            opacity: 1;
-        }
-
-        #screen-home .swiper-pagination {
-            bottom: 0 !important;
-        }
-
-        #screen-home .swiper-pagination-bullet {
-            width: 8px;
-            height: 8px;
-            background-color: var(--dot-inactive);
-            opacity: 1;
-            transition: all 0.3s ease;
-        }
-
-        #screen-home .swiper-pagination-bullet-active {
-            width: 25px;
-            border-radius: 10px;
-            background: linear-gradient(to right, #6ecbf5, #3582d9);
-        }
-
-        /* BOTÕES INFERIORES */
-        #screen-home .btn-primary {
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
-            text-decoration: none;
-            padding: 12px 60px;
-            border-radius: 30px;
+        #screen-home .user-stats {
+            display: flex;
+            gap: 5px;
+            font-size: 0.7rem;
             font-weight: 700;
-            font-size: 1rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-bottom: 10px;
-            width: 100%;
-            max-width: 300px;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        #screen-home .s-cyan {
+            color: #21b8c7;
+        }
+
+        #screen-home .s-purple {
+            color: #6a25e8;
+        }
+
+        #screen-home .s-gold {
+            color: #c0a256;
+        }
+
+        #screen-home .s-red {
+            color: #e65245;
+        }
+
+        #screen-home .s-black {
+            color: #121212;
+        }
+
+        #screen-home .user-action {
+            color: #8b4bff;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ==================== FILTRO ATIVO + LISTA VAZIA ==================== */
+        #screen-home .f-btn.active,
+        #screen-home .f-white-col.active {
+            box-shadow: 0 0 0 2px #ffffff, 0 4px 12px rgba(255, 255, 255, 0.35);
+        }
+
+        #screen-home .empty-note {
+            color: #8a7b92;
+            font-size: 0.7rem;
+            font-weight: 500;
             text-align: center;
-        }
-
-        #screen-home .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-        }
-
-        #screen-home .btn-mobile-entrar {
-            display: none;
-            color: var(--text-white);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
-            opacity: 0.7;
-            margin-bottom: 10px;
+            padding: 12px 10px;
+            flex-shrink: 0;
         }
 
         @media (max-width: 768px) {
-            #screen-home .bg-pattern::before,
-            #screen-home .bg-pattern::after {
-                display: none;
+            #screen-home .mgmt-card {
+                flex: 1;
             }
 
-            #screen-home .bg-pattern {
-                background-image: url('src/fundo.png');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                position: fixed;
+            #screen-home .filters-container {
+                flex: 1;
+            }
+        }
+
+        /* ================================================================ */
+        /* ==================== TELA: INSTIT =============================== */
+        /* ================================================================ */
+        #screen-instit {
+            background-color: var(--bg-deep);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100dvh;
+            padding-bottom: 0;
+        }
+
+        #screen-instit header {
+            width: 100%;
+            padding: 20px 20px 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        #screen-instit .logo-icon {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        #screen-instit .header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        #screen-instit .header-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        #screen-instit .header-text p {
+            color: var(--text-gray);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        #screen-instit .header-text .highlight {
+            color: var(--text-gold);
+            font-weight: 600;
+        }
+
+        #screen-instit .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px 16px 10px 16px;
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #screen-instit .main-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Barra Branca de Título */
+        #screen-instit .white-title-bar {
+            width: 100%;
+            background-color: #ffffff;
+            color: #121212;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* Topo Dashboard */
+        #screen-instit .top-dashboard {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        #screen-instit .mgmt-card {
+            flex: 0.9;
+            background-color: var(--brand-coral);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #screen-instit .mgmt-header {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 10px 0 20px 0;
+            color: #ffffff;
+        }
+
+        #screen-instit .mgmt-body {
+            background-color: var(--panel-bg);
+            border-radius: 20px 20px 0 0;
+            margin-top: -16px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 5px;
+            flex: 1;
+        }
+
+        #screen-instit .stat-item {
+            text-align: center;
+        }
+
+        #screen-instit .stat-num {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-gold);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+
+        #screen-instit .stat-label {
+            font-size: 0.45rem;
+            color: var(--text-gray);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        #screen-instit .filters-container {
+            flex: 1.1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        #screen-instit .f-row {
+            display: flex;
+            gap: 6px;
+            height: 50%;
+        }
+
+        #screen-instit .f-btn {
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4px;
+            cursor: pointer;
+        }
+
+        #screen-instit .f-cyan {
+            flex: 0.45;
+            background-color: var(--filter-cyan);
+            color: #121212;
+        }
+
+        #screen-instit .f-white-double {
+            flex: 0.55;
+            background-color: var(--filter-white);
+            color: #121212;
+            display: flex;
+            border-radius: 8px;
+        }
+
+        #screen-instit .f-white-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #screen-instit .f-divider {
+            width: 1px;
+            height: 60%;
+            background-color: #d1d1d1;
+            margin: auto 0;
+        }
+
+        #screen-instit .f-purple {
+            flex: 1;
+            background-color: var(--filter-purple);
+            color: #ffffff;
+        }
+
+        #screen-instit .f-yellow {
+            flex: 1;
+            background-color: var(--filter-yellow);
+            color: #121212;
+        }
+
+        #screen-instit .f-coral {
+            flex: 1;
+            background-color: var(--brand-coral);
+            color: #ffffff;
+        }
+
+        #screen-instit .f-num {
+            font-size: 0.85rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        #screen-instit .f-label {
+            font-size: 0.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        #screen-instit .f-btn.active,
+        #screen-instit .f-white-col.active {
+            box-shadow: 0 0 0 2px #ffffff, 0 4px 12px rgba(255, 255, 255, 0.35);
+        }
+
+        /* ==================== ACCORDION (SANFONA) ==================== */
+        #screen-instit .accordion-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+
+        #screen-instit .accordion-item {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #screen-instit .accordion-header {
+            background-color: var(--acc-dark);
+            color: var(--text-white);
+            padding: 8px 18px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #screen-instit .accordion-title {
+            font-size: 0.72rem;
+            font-weight: 500;
+        }
+
+        #screen-instit .arrow-icon {
+            width: 8px;
+            height: 12px;
+            fill: #b3b3b3;
+        }
+
+        /* Aba ativa fica branca (igual para todas) */
+        #screen-instit .accordion-item.active .accordion-header {
+            background-color: #ffffff;
+            color: #121212;
+            border-radius: 10px 10px 0 0;
+        }
+
+        #screen-instit .accordion-item.active .accordion-header .accordion-title {
+            font-weight: 800;
+            font-size: 0.75rem;
+        }
+
+        #screen-instit .accordion-item.active .accordion-header .arrow-icon {
+            fill: #121212;
+        }
+
+        #screen-instit .accordion-content {
+            background-color: var(--acc-dark);
+            width: 100%;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            border-radius: 0 0 10px 10px;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+        }
+
+        #screen-instit .accordion-item.active .accordion-content {
+            max-height: 1600px;
+            opacity: 1;
+            overflow-y: auto;
+        }
+
+        /* ==================== CONTEÚDO FIEL DA IMAGEM ==================== */
+        #screen-instit .box-content {
+            padding: 8px 10px 14px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Bloco 1: Banner e Chips */
+        #screen-instit .instit-banner {
+            background-color: var(--instit-banner);
+            border-radius: 8px;
+            padding: 5px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        #screen-instit .banner-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #screen-instit .banner-title {
+            color: #121212;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        #screen-instit .banner-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        #screen-instit .icon-trash {
+            fill: #e34848;
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+        }
+
+        #screen-instit .icon-check {
+            fill: #121212;
+            width: 14px;
+            height: 14px;
+        }
+
+        #screen-instit .icon-gear {
+            fill: #5ec4ff;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        #screen-instit .banner-sub {
+            font-size: 0.55rem;
+            color: #444;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #screen-instit .purple-id {
+            color: #8b4bff;
+            font-weight: 700;
+        }
+
+        /* Chips */
+        #screen-instit .chips-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        #screen-instit .chip {
+            background-color: #d6dfe8;
+            color: #121212;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #screen-instit .chip.white {
+            background-color: #ffffff;
+        }
+
+        /* Bloco 2: Grid de Permissões */
+        #screen-instit .permissions-grid {
+            display: grid;
+            grid-template-columns: 0.85fr 1.7fr;
+            gap: 6px;
+        }
+
+        #screen-instit .perm-col {
+            border-radius: 8px;
+            padding: 6px;
+        }
+
+        #screen-instit .col-left {
+            background-color: var(--instit-col-left);
+        }
+
+        #screen-instit .col-right {
+            background-color: var(--instit-col-right);
+        }
+
+        /* Itens da Esquerda (Módulos) */
+        #screen-instit .module-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        #screen-instit .mod-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            color: #d1d1d1;
+            cursor: pointer;
+        }
+
+        #screen-instit .mod-item.active {
+            background-color: var(--instit-banner);
+            color: #121212;
+        }
+
+        /* Itens da Direita (Comandos) */
+        #screen-instit .cmd-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+        }
+
+        #screen-instit .cmd-btn {
+            background-color: var(--instit-btn);
+            color: #121212;
+            border-radius: 16px;
+            padding: 4px 6px;
+            font-size: 0.52rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* O Ícone de Puzzle Customizado */
+        #screen-instit .puzzle {
+            width: 10px;
+            height: 10px;
+            flex-shrink: 0;
+        }
+
+        #screen-instit .pz-blue {
+            fill: #5ec4ff;
+        }
+
+        #screen-instit .pz-red {
+            fill: #e34848;
+        }
+
+        #screen-instit .pz-yellow {
+            fill: #dfb841;
+        }
+
+        #screen-instit .empty-note {
+            color: #8a7b92;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 8px;
+        }
+
+        #screen-instit .acc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Cargos: visão de configuração */
+        #screen-instit .cargo-row {
+            background-color: var(--instit-banner);
+            border-radius: 8px;
+            padding: 4px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #screen-instit .cargo-name {
+            color: #121212;
+            font-size: 0.72rem;
+            font-weight: 800;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #screen-instit .cargo-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        #screen-instit .cargo-config {
+            fill: #5ec4ff;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        #screen-instit .cargo-plus {
+            color: #121212;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #screen-instit .chip.input-chip {
+            background-color: #ffffff;
+            border: none;
+            outline: none;
+            color: #121212;
+            width: 150px;
+            font-weight: 600;
+        }
+
+        #screen-instit .chip.input-chip::placeholder {
+            color: #8a8a90;
+        }
+
+        /* Efeito 3D (pasta) no card do cargo */
+        #screen-instit .instit-banner.card-3d {
+            background-color: transparent;
+            gap: 0;
+            padding: 0;
+        }
+
+        #screen-instit .instit-banner.card-3d .banner-top {
+            background-color: #c8f0ff;
+            border-radius: 8px 8px 0 0;
+            padding: 5px 12px;
+        }
+
+        #screen-instit .instit-banner.card-3d.no-sub .banner-top {
+            border-radius: 8px;
+        }
+
+        #screen-instit .instit-banner.card-3d .banner-sub {
+            background-color: #a8cddb;
+            border-radius: 0 0 8px 8px;
+            padding: 7px 12px 5px;
+        }
+
+        /* Pílula Acess ID */
+        #screen-instit .chip.acdm {
+            background-color: #a8cddb;
+        }
+
+        /* Input inline de criar cargo no header */
+        #screen-instit .accordion-header .header-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        #screen-instit .accordion-header .header-create-input,
+        #screen-instit .accordion-header .header-create-check {
+            display: none;
+        }
+
+        #screen-instit .accordion-header .header-create-input {
+            background: #f1f2f4;
+            border: none;
+            border-radius: 12px;
+            padding: 2px 10px;
+            font-size: 0.68rem;
+            color: #121212;
+            width: 110px;
+            outline: none;
+        }
+
+        #screen-instit .accordion-header .header-create-input::placeholder {
+            color: #a1a1a1;
+        }
+
+        #screen-instit .accordion-header .header-create-check {
+            width: 13px;
+            height: 13px;
+            fill: #121212;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        #screen-instit .accordion-header .header-create-check:active {
+            transform: scale(0.82);
+        }
+
+        #screen-instit .accordion-header .accordion-plus {
+            display: none;
+            color: #a1a1a1;
+            font-size: 1.2rem;
+            font-weight: 300;
+            line-height: 1;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #screen-instit .accordion-item.active .accordion-header .accordion-plus {
+            display: inline;
+        }
+
+        #screen-instit .accordion-item.active .accordion-header .header-create-check {
+            fill: #121212;
+        }
+
+        #screen-instit .accordion-item.active .accordion-header.create-open .accordion-plus {
+            display: none;
+        }
+
+        #screen-instit .accordion-header.create-open .header-create-input,
+        #screen-instit .accordion-header.create-open .header-create-check {
+            display: inline-block;
+        }
+
+        #screen-instit .accordion-item.active .arrow-icon {
+            display: none;
+        }
+
+        /* Inputs dentro de chips/pílulas */
+        #screen-instit .chip .chip-inline,
+        #screen-instit .gid-inline {
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #121212;
+            width: 90px;
+        }
+
+        #screen-instit .chip .chip-inline::placeholder {
+            color: #666;
+        }
+
+        #screen-instit .gid-inline {
+            color: #8b4bff;
+            font-size: 0.55rem;
+            font-weight: 700;
+            width: 64px;
+        }
+
+        #screen-instit .gid-inline::placeholder {
+            color: #6b6b6b;
+            opacity: 0.7;
+        }
+
+        #screen-instit .icon-back {
+            fill: #121212;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        #screen-instit .tri-row .puzzle {
+            cursor: pointer;
+        }
+
+        /* ==================== ANIMAÇÕES INSTIT ==================== */
+        @keyframes institFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
 
-            #screen-home header {
-                padding: 15px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes institPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.85);
             }
 
-            #screen-home .header-btn {
-                display: none;
+            60% {
+                transform: scale(1.05);
             }
 
-            #screen-home h1 {
-                font-size: 1.8rem;
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #screen-instit #instit-cargos-view,
+        #screen-instit #instit-acess-view {
+            animation: institFadeUp 0.28s ease both;
+        }
+
+        #screen-instit #instit-cargos .cargo-row {
+            animation: institFadeUp 0.3s ease both;
+        }
+
+        #screen-instit #instit-cargos .cargo-row:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        #screen-instit #instit-cargos .cargo-row:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        #screen-instit #instit-cargos .cargo-row:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+
+        #screen-instit #instit-cargos .cargo-row:nth-child(5) {
+            animation-delay: 0.2s;
+        }
+
+        #screen-instit .chip {
+            animation: institPop 0.25s ease both;
+        }
+
+        #screen-instit .chip.acdm {
+            animation-delay: 0.05s;
+        }
+
+        #screen-instit .cargo-config,
+        #screen-instit .cargo-plus,
+        #screen-instit .icon-trash,
+        #screen-instit .icon-check,
+        #screen-instit .icon-back {
+            transition: transform 0.15s ease;
+        }
+
+        #screen-instit .cargo-config:active,
+        #screen-instit .cargo-plus:active,
+        #screen-instit .icon-trash:active,
+        #screen-instit .icon-check:active,
+        #screen-instit .icon-back:active {
+            transform: scale(0.82);
+        }
+
+        #screen-instit .puzzle {
+            transition: fill 0.25s ease, transform 0.2s ease;
+        }
+
+        #screen-instit .puzzle:active {
+            transform: scale(1.3);
+        }
+
+        #screen-instit .mod-item {
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        #screen-instit .cmd-btn {
+            transition: transform 0.15s ease, background-color 0.2s ease;
+        }
+
+        #screen-instit .cmd-btn:hover {
+            background-color: #ffffff;
+        }
+
+        #screen-instit .cmd-btn:active {
+            transform: scale(0.93);
+        }
+
+        #screen-instit .accordion-content {
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+
+        #screen-instit .cargo-row {
+            transition: background-color 0.2s ease;
+        }
+
+        #screen-instit .cargo-row:hover {
+            background-color: #cfeafb;
+        }
+
+        @media (max-width: 768px) {
+            #screen-instit .mgmt-card {
+                flex: 1;
             }
 
-            #screen-home .subtitle {
-                font-size: 0.75rem;
-                max-width: 280px;
-            }
-
-            #screen-home .swiper-slide {
-                width: 210px;
-                height: 360px;
-            }
-
-            #screen-home .card-inner {
-                height: 320px;
-            }
-
-            #screen-home .btn-primary {
-                padding: 12px 40px;
-                font-size: 0.95rem;
-                max-width: 220px;
-            }
-
-            #screen-home .btn-mobile-entrar {
-                display: block;
+            #screen-instit .filters-container {
+                flex: 1;
             }
         }
 
@@ -644,7 +1603,7 @@
         /* ================================================================ */
         #screen-assinermos {
             background-color: var(--bg-deep);
-            color: var(--input-bg);
+            color: var(--text-white);
             font-family: 'Inter', sans-serif;
         }
 
@@ -1047,14 +2006,265 @@
             }
         }
 
+        #screen-instit .s-cyan {
+            color: #21b8c7;
+        }
+
+        #screen-instit .s-purple {
+            color: #6a25e8;
+        }
+
+        #screen-instit .s-gold {
+            color: #c0a256;
+        }
+
+        #screen-instit .s-red {
+            color: #e65245;
+        }
+
+        #screen-instit .s-black {
+            color: #121212;
+        }
+
+        /* ==================== ESTILOS: INTEGRAÇÃO E ASSOCIAÇÃO (PIXEL PERFECT) ==================== */
+        #screen-instit .group-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+
+        /* Banner do Grupo */
+        #screen-instit .group-banner {
+            padding: 3px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #screen-instit .group-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #screen-instit .group-title {
+            color: #121212;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        #screen-instit .group-gid {
+            color: #8b4bff;
+            font-size: 0.62rem;
+            font-weight: 700;
+        }
+
+        #screen-instit .group-stats-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.62rem;
+            font-weight: 800;
+        }
+
+        #screen-instit .stat-cyan {
+            color: #5ec4ff;
+        }
+
+        #screen-instit .stat-purple {
+            color: #6a25e8;
+        }
+
+        #screen-instit .stat-gold {
+            color: #dfb841;
+        }
+
+        #screen-instit .stat-red {
+            color: #e65245;
+        }
+
+        #screen-instit .stat-dark {
+            color: #121212;
+        }
+
+        /* Grid de Detalhes da Associação */
+        #screen-instit .group-detail-grid {
+            display: grid;
+            grid-template-columns: 0.85fr 1.7fr;
+            gap: 6px;
+            padding: 0;
+        }
+
+        /* Menu Lateral Esquerdo */
+        #screen-instit .group-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        #screen-instit .menu-btn-pill {
+            background-color: #4a3e54;
+            color: #d1d1d1;
+            border-radius: 5px;
+            padding: 3px 6px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        #screen-instit .menu-btn-pill .puzzle {
+            width: 10px;
+            height: 10px;
+            flex-shrink: 0;
+        }
+
+        #screen-instit .menu-item {
+            background-color: #4a3e54;
+            color: #d1d1d1;
+            border-radius: 5px;
+            padding: 3px 6px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        #screen-instit .menu-item.active {
+            background-color: var(--instit-banner);
+            color: #121212;
+            font-weight: 800;
+        }
+
+        /* Painel Conteúdo Direito */
+        #screen-instit .group-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Card de Advertência */
+        #screen-instit .warning-card {
+            background-color: var(--instit-col-left);
+            border-radius: 15px;
+            padding: 0px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+        }
+
+        #screen-instit .warning-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1px;
+            background-color: white;
+            border-radius: 20px;
+            position: relative;
+            min-width: 0;
+        }
+
+        #screen-instit .user-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            min-width: 0;
+        }
+
+        #screen-instit .user-avatar-sm {
+            width: 22px;
+            height: 22px;
+            background-color: #8b4bff;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        #screen-instit .user-name-sm {
+            color: black;
+            font-size: 0.6rem;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #screen-instit .user-id-sm {
+            color: #bfa5e6;
+            font-size: 0.52rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        #screen-instit .warning-id {
+            color: #bfa5e6;
+            font-size: 0.46rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 1px 4px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        #screen-instit .icon-clock {
+            width: 12px;
+            height: 12px;
+            fill: #bfa5e6;
+            margin-right: 6px;
+            flex-shrink: 0;
+        }
+
+        #screen-instit .warning-text-box {
+            border-radius: 8px;
+            padding: 2px 8px 2px 8px;
+            color: #e0e0e0;
+            font-size: 0.52rem;
+            line-height: 1.3;
+            font-weight: 500;
+            max-height: 3.9em;
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: anywhere;
+        }
+
+        #screen-instit .warning-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+            background-color: rgba(69, 55, 73, 0.918);
+            align-items: center;
+            font-size: 0.46rem;
+            padding: 3px 5px;
+            border-radius: 5px;
+            color: #a39ca8;
+            font-weight: 600;
+            margin: 5px;
+            min-width: 0;
+        }
+
+        #screen-instit .warning-author {
+            color: #d1d1d1;
+            min-width: 0;
+        }
+
+        #screen-instit .warning-author-highlight {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
         /* ==================== HEADER REDUZIDO NO MOBILE (≈20%) ==================== */
         @media (max-width: 768px) {
             #screen-home header {
-                padding: 12px 15px;
+                padding: 20px 16px;
             }
 
-            #screen-home .logo-img {
-                height: 36px;
+            #screen-home .logo-icon {
+                height: 40px;
             }
 
             #screen-licencas header,
@@ -1081,10 +2291,293 @@
 <body>
 
     <!-- ============================ TELA: HOME ============================ -->
-    <section id="screen-home" class="screen active"></section>
+    <section id="screen-home" class="screen active">
+        <header>
+            <img src="src/logo_grande.png" alt="Logo Academy" class="logo-icon">
+            <div class="header-text">
+                <h1>Instituto Academy Alquirves</h1>
+                <p>Olá Diretora <span class="highlight">Megalos Saey</span></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+
+            <!-- 1. TOPO: DASHBOARD E FILTROS -->
+            <div class="top-dashboard">
+
+                <div class="mgmt-card">
+                    <div class="mgmt-header">GERENCIAMENTO</div>
+                    <div class="mgmt-body">
+                        <div class="stat-item">
+                            <span class="stat-num" data-stat="membros">—</span>
+                            <span class="stat-label">Membros</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num" data-stat="acessos">—</span>
+                            <span class="stat-label">Acessos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filters-container">
+                    <div class="f-row-1">
+                        <div class="f-btn f-cyan">
+                            <span class="f-num" data-filtro="finalizados">—</span><span
+                                class="f-label">Finalizados</span>
+                        </div>
+                        <div class="f-white-double">
+                            <div class="f-white-col">
+                                <span class="f-num" data-filtro="analise">—</span><span class="f-label">Análise</span>
+                            </div>
+                            <div class="f-divider"></div>
+                            <div class="f-white-col">
+                                <span class="f-num" data-filtro="adiado">—</span><span class="f-label">Adiado</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f-row-2">
+                        <div class="f-btn f-purple">
+                            <span class="f-num" data-filtro="emissao">—</span><span class="f-label">Emissão</span>
+                        </div>
+                        <div class="f-btn f-yellow">
+                            <span class="f-num" data-filtro="solicitacao">—</span><span
+                                class="f-label">Solicitação</span>
+                        </div>
+                        <div class="f-btn f-coral">
+                            <span class="f-num" data-filtro="vencidos">—</span><span class="f-label">Vencidos</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 2. MEIO: LISTAS PARALELAS (ROLÁVEIS) -->
+            <div class="dual-lists">
+
+                <div class="inner-scroll" id="home-list-avl"></div>
+
+                <div class="inner-scroll" id="home-list-cert"></div>
+
+            </div>
+
+            <!-- 3. RODAPÉ: LISTA DE USUÁRIOS (ROLÁVEL) -->
+            <div class="users-list inner-scroll" id="home-list-users"></div>
+
+        </main>
+    </section>
 
     <!-- ============================ TELA: INSTIT ============================ -->
-    <section id="screen-instit" class="screen"></section>
+    <section id="screen-instit" class="screen">
+        <header>
+            <img src="src/logo_grande.png" alt="Logo Academy" class="logo-icon">
+            <div class="header-text">
+                <h1>Instituto Academy Alquirves</h1>
+                <p>Olá Diretora <span class="highlight">Megalos Saey</span></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="white-title-bar">Instituto Academy</div>
+
+            <!-- DASHBOARD TOPO -->
+            <div class="top-dashboard">
+                <div class="mgmt-card">
+                    <div class="mgmt-header">GERENCIAMENTO</div>
+                    <div class="mgmt-body">
+                        <div class="stat-item"><span class="stat-num" data-instit-stat="membros">—</span><span
+                                class="stat-label">Membros</span></div>
+                        <div class="stat-item"><span class="stat-num" data-instit-stat="acessos">—</span><span
+                                class="stat-label">GIDs</span></div>
+                    </div>
+                </div>
+
+                <div class="filters-container">
+                    <div class="f-row">
+                        <div class="f-btn f-cyan"><span class="f-num" data-instit-filtro="finalizados">—</span><span
+                                class="f-label">Finalizados</span></div>
+                        <div class="f-white-double">
+                            <div class="f-white-col"><span class="f-num" data-instit-filtro="analise">—</span><span
+                                    class="f-label">Análise</span></div>
+                            <div class="f-divider"></div>
+                            <div class="f-white-col"><span class="f-num" data-instit-filtro="adiado">—</span><span
+                                    class="f-label">Adiado</span></div>
+                        </div>
+                    </div>
+                    <div class="f-row">
+                        <div class="f-btn f-purple"><span class="f-num" data-instit-filtro="emissao">—</span><span
+                                class="f-label">Emissão</span></div>
+                        <div class="f-btn f-yellow"><span class="f-num" data-instit-filtro="solicitacao">—</span><span
+                                class="f-label">Solicitação</span></div>
+                        <div class="f-btn f-coral"><span class="f-num" data-instit-filtro="vencidos">—</span><span
+                                class="f-label">Vencidos</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SANFONA (ACCORDION) -->
+            <div class="accordion-wrapper">
+
+                <!-- Aba 1: Cargos e Acess ID (igual às outras quando fechada) -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">Cargos e Acess ID</span>
+                        <div class="header-actions">
+                            <input type="text" id="instit-cargo-nome" class="header-create-input"
+                                placeholder="Nome do cargo" maxlength="32" onclick="event.stopPropagation()"
+                                onkeydown="if(event.key==='Enter')institConfirmCreate()">
+                            <svg class="icon-check header-create-check" viewBox="0 0 24 24"
+                                onclick="event.stopPropagation(); institConfirmCreate();">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                            </svg>
+                            <span class="accordion-plus"
+                                onclick="event.stopPropagation(); institToggleCreate();">+</span>
+                            <svg class="arrow-icon" viewBox="0 0 24 24">
+                                <path d="M5 3l14 9-14 9z" fill="currentColor" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="accordion-content">
+                        <div class="box-content">
+
+                            <!-- FASE 1: CARGOS (lista) -->
+                            <div id="instit-cargos-view">
+
+                                <div class="acc-list" id="instit-cargos"></div>
+
+                            </div>
+
+                            <!-- FASE 2: ACESS DO CARGO (fiel ao protótipo) -->
+                            <div id="instit-acess-view" style="display:none;">
+
+                                <div class="instit-banner card-3d">
+                                    <div class="banner-top">
+                                        <span class="banner-title" id="instit-acess-titulo">—</span>
+                                        <div class="banner-actions">
+                                            <svg class="icon-check" viewBox="0 0 24 24" onclick="institBackCargos()">
+                                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="banner-sub">
+                                        <input id="instit-acess-gid" class="gid-inline" placeholder="INSTIT ou GID"
+                                            maxlength="20">
+                                        <svg class="icon-check" viewBox="0 0 24 24" style="width:10px; height:10px;">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div id="instit-members-section" style="display:none;">
+                                    <div class="chips-row" id="instit-acess-chips"></div>
+                                </div>
+
+                                <div id="instit-perms-section" style="display:none;">
+                                    <div class="permissions-grid">
+                                        <div class="perm-col col-left">
+                                            <div class="module-list" id="instit-mods"></div>
+                                        </div>
+                                        <div class="perm-col col-right">
+                                            <div class="cmd-grid" id="instit-cmds"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Aba 2: Integração e Associação -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">Integração e Associação</span>
+                        <div class="header-actions">
+                            <span class="accordion-plus">+</span>
+                            <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9z" fill="currentColor"/></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="box-content">
+                            <div class="group-box">
+
+                                <!-- Banner do Grupo -->
+                                <div class="group-banner">
+                                    <div class="group-info">
+                                        <span class="group-title" id="instit-group-titulo">—</span>
+                                        <span class="group-gid" id="instit-group-gid">#GID</span>
+                                    </div>
+                                    <div class="group-stats-row">
+                                        <span class="stat-cyan">2</span>
+                                        <span class="stat-purple">4</span>
+                                        <span class="stat-gold">5</span>
+                                        <span class="stat-red">5</span>
+                                        <span class="stat-dark">1</span>
+                                        <span class="stat-dark">1</span>
+                                        <svg class="icon-gear" viewBox="0 0 24 24">
+                                            <path
+                                                d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.92 3.32c-.12.22-.07.49.12.61l2.03 1.58c-.04.3-.06.63-.06.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Detalhes do Grupo -->
+                                <div class="group-detail-grid">
+                                    <!-- Menu Esquerdo -->
+                                    <div class="group-menu">
+                                        <div class="menu-btn-pill">
+                                            <svg class="puzzle pz-blue" viewBox="0 0 24 24"
+                                                style="width:10px; height:10px;">
+                                                <path
+                                                    d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-2 .9-2 2v4H.5c-1.38 0-2.5 1.12-2.5 2.5S-1.12 16 .5 16H2v4c0 1.1.9 2 2 2h4v1.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V22h4c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z" />
+                                            </svg>
+                                            <span>Permiss e Acess</span>
+                                            <span>»</span>
+                                        </div>
+                                        <div class="menu-item active" data-instit-menu="adv">Advertências</div>
+                                        <div class="menu-item" data-instit-menu="ban">Banimentos</div>
+                                        <div class="menu-item" data-instit-menu="res">Restrições</div>
+                                        <div class="menu-item" data-instit-menu="not">Notas</div>
+                                        <div class="menu-item" data-instit-menu="log" style="color: #e65245;">Command Log</div>
+                                    </div>
+
+                                    <!-- Conteúdo Direito -->
+                                    <div class="group-content" id="instit-advertencias"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba 3 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">Recursos e AVL</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24">
+                            <path d="M5 3l14 9-14 9z" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="acc-list" id="instit-avl"></div>
+                    </div>
+                </div>
+
+                <!-- Aba 4 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">Membros e Admins</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24">
+                            <path d="M5 3l14 9-14 9z" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="acc-list" id="instit-membros"></div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </section>
 
     <!-- ============================ TELA: LICENÇAS ============================ -->
     <section id="screen-licencas" class="screen">
@@ -1106,14 +2599,17 @@
                 </div>
 
                 <form action="#" method="POST">
-                    <input type="text" class="input-pill" placeholder="Selecione o tipo de Licença Alquirves" name="tipo">
+                    <input type="text" class="input-pill" placeholder="Selecione o tipo de Licença Alquirves"
+                        name="tipo">
 
                     <div class="input-row">
                         <input type="text" class="input-pill" placeholder="ACDM ID do Licenciado" name="licenciado">
-                        <input type="text" class="input-pill" placeholder="INSTIT ou ACDM ID do Licenciante" name="licenciante">
+                        <input type="text" class="input-pill" placeholder="INSTIT ou ACDM ID do Licenciante"
+                            name="licenciante">
                     </div>
 
-                    <input type="text" class="input-pill" placeholder="Informe a Validade da Licença Alquirves" name="validade">
+                    <input type="text" class="input-pill" placeholder="Informe a Validade da Licença Alquirves"
+                        name="validade">
 
                     <button type="submit" class="btn-submit">Emitir e Encaminhar</button>
                 </form>
@@ -1153,8 +2649,10 @@
                     </label>
                     <input type="file" id="doc-upload" class="hidden-file-input" accept=".pdf,.doc,.docx,.png,.jpg">
 
-                    <input type="text" class="input-pill input-dark" placeholder="Informe a Validade do documento" name="validade">
-                    <input type="text" class="input-pill input-dark" placeholder="Informe o ACDM ID do assinante" name="assinante">
+                    <input type="text" class="input-pill input-dark" placeholder="Informe a Validade do documento"
+                        name="validade">
+                    <input type="text" class="input-pill input-dark" placeholder="Informe o ACDM ID do assinante"
+                        name="assinante">
 
                     <button type="submit" class="btn-yellow">Encaminhar Solicitação</button>
                 </form>
@@ -1237,7 +2735,719 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
     <script>
+        function toggleAccordion(element) {
+            const currentItem = element.parentElement;
+            const isActive = currentItem.classList.contains('active');
+            document.querySelectorAll('.accordion-item').forEach(function (item) {
+                item.classList.remove('active');
+            });
+            if (!isActive) {
+                currentItem.classList.add('active');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
+
+            /* ==================== SESSÃO + DADOS REAIS (HOME) ==================== */
+            var ALQUIRVES_BASE = '/alrquives';
+            var dashboard = null;
+            var activeFilter = null;
+            function escapeHtml(t) {
+                var d = document.createElement('div');
+                d.textContent = t == null ? '' : String(t);
+                return d.innerHTML;
+            }
+
+
+            function fmt(n) {
+                return Number(n || 0).toLocaleString('pt-BR');
+            }
+
+            function statusLabel(s) {
+                return {
+                    finalizado: 'Finalizado',
+                    analise: 'Análise',
+                    adiado: 'Adiado',
+                    emissao: 'Emissão',
+                    solicitacao: 'Solicitação',
+                    vencido: 'Vencido'
+                }[s] || s;
+            }
+
+            function setGreeting(name) {
+                document.querySelectorAll('.screen header .header-text p').forEach(function (p) {
+                    p.innerHTML = 'Olá <span class="highlight"></span>';
+                    p.querySelector('.highlight').textContent = name;
+                });
+            }
+
+            function renderAvl() {
+                var list = document.getElementById('home-list-avl');
+                var items = dashboard.avl;
+                if (activeFilter) {
+                    items = items.filter(function (r) { return r.status === activeFilter; });
+                }
+                list.innerHTML = '';
+                if (!items.length) {
+                    list.innerHTML = '<div class="empty-note">Nenhuma licença' + (activeFilter ? ' ' + statusLabel(activeFilter) : '') + ' registrada.</div>';
+                    return;
+                }
+                items.forEach(function (r) {
+                    var el = document.createElement('div');
+                    el.className = 'avl-item';
+                    el.textContent = (r.titulo || 'Licença Alquirves') + (r.licenciado ? ' · ' + r.licenciado : '');
+                    list.appendChild(el);
+                });
+            }
+
+            function renderCerts() {
+                var list = document.getElementById('home-list-cert');
+                var items = dashboard.certs;
+                if (activeFilter) {
+                    items = items.filter(function (r) { return r.status === activeFilter; });
+                }
+                list.innerHTML = '';
+                if (!items.length) {
+                    list.innerHTML = '<div class="empty-note">Nenhum certificado' + (activeFilter ? ' ' + statusLabel(activeFilter) : '') + ' registrado.</div>';
+                    return;
+                }
+                items.forEach(function (r) {
+                    var el = document.createElement('div');
+                    el.className = 'cert-item';
+                    el.innerHTML =
+                        '<div class="cert-img-placeholder"></div>' +
+                        '<div class="cert-info">' +
+                        '<h4>' + escapeHtml(r.titulo || 'Certificado Academy') + '</h4>' +
+                        '<span>' + escapeHtml(r.outorgado || '—') + '</span>' +
+                        '<span>' + escapeHtml(r.organizacao || 'Instituto Academy') + '</span>' +
+                        '<span class="cert-role">Certificante · ' + statusLabel(r.status) + '</span>' +
+                        '<span class="cert-date">' + escapeHtml(r.validade || '—') + '</span>' +
+                        '</div>';
+                    list.appendChild(el);
+                });
+            }
+
+            function renderUsers() {
+                var list = document.getElementById('home-list-users');
+                list.innerHTML = '';
+                if (!dashboard.users.length) {
+                    list.innerHTML = '<div class="empty-note">Nenhum usuário.</div>';
+                    return;
+                }
+                dashboard.users.forEach(function (u) {
+                    var el = document.createElement('div');
+                    el.className = 'user-pill';
+                    var initials = String(u.name || '').replace(/[^\p{L}\p{N}\s]/gu, '').trim().split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w.charAt(0); }).join('').toUpperCase() || '#';
+                    var circle =
+                        '<div class="user-circle">' +
+                        '<span class="user-initials">' + escapeHtml(initials) + '</span>' +
+                        (u.avatar ? '<img class="user-avatar" src="' + escapeHtml(u.avatar) + '" alt="" loading="lazy" onerror="this.remove()">' : '') +
+                        '</div>';
+                    el.innerHTML =
+                        circle +
+                        '<div class="user-name-group"><span class="user-name">' + escapeHtml(u.name) + '</span><span class="user-id">#' + escapeHtml(u.acdmId) + '</span></div>' +
+                        '<div class="user-stats">' +
+                        '<span class="s-cyan">' + u.counts.finalizados + '</span>' +
+                        '<span class="s-purple">' + u.counts.emissao + '</span>' +
+                        '<span class="s-gold">' + u.counts.solicitacao + '</span>' +
+                        '<span class="s-red">' + u.counts.vencidos + '</span>' +
+                        '<span class="s-black">' + u.counts.analise + '</span>' +
+                        '<span class="s-black">' + u.counts.adiado + '</span>' +
+                        '</div>' +
+                        '<div class="user-action">ID Card</div>';
+                    list.appendChild(el);
+                });
+
+                var ghost = document.createElement('div');
+                ghost.className = 'user-pill ghost';
+                list.appendChild(ghost);
+            }
+
+            function renderDashboard(d) {
+                dashboard = d;
+                document.querySelector('[data-stat="membros"]').textContent = fmt(d.membros);
+                document.querySelector('[data-stat="acessos"]').textContent = fmt(d.acessos);
+                ['finalizados', 'analise', 'adiado', 'emissao', 'solicitacao', 'vencidos'].forEach(function (s) {
+                    var el = document.querySelector('[data-filtro="' + s + '"]');
+                    if (el) {
+                        el.textContent = fmt(d.filtros[s]);
+                    }
+                });
+                renderAvl();
+                renderCerts();
+                renderUsers();
+            }
+
+            function setFilter(s) {
+                activeFilter = activeFilter === s ? null : s;
+                document.querySelectorAll('#screen-home .f-btn, #screen-home .f-white-col').forEach(function (b) {
+                    b.classList.remove('active');
+                });
+                if (activeFilter) {
+                    var el = document.querySelector('[data-filtro="' + activeFilter + '"]');
+                    if (el && el.parentElement) {
+                        el.parentElement.classList.add('active');
+                    }
+                }
+                renderAvl();
+                renderCerts();
+            }
+
+            document.querySelectorAll('#screen-home [data-filtro]').forEach(function (el) {
+                el.parentElement.addEventListener('click', function () {
+                    setFilter(el.getAttribute('data-filtro'));
+                });
+            });
+
+            fetch('/alrquives/me')
+                .then(function (r) {
+                    if (r.ok) {
+                        return r.json();
+                    }
+                    localStorage.removeItem('alquirves_session');
+                    return null;
+                })
+                .then(function (u) {
+                    if (u && u.acdmId) {
+                        localStorage.setItem('alquirves_session', u.acdmId);
+                        setGreeting(u.name || u.acdmId);
+                    }
+                })
+                .catch(function () { });
+
+            fetch('/alrquives/dados')
+                .then(function (r) { return r.json(); })
+                .then(function (d) { renderDashboard(d); })
+                .catch(function () { });
+
+            /* ==================== INSTIT ==================== */
+            function renderInstit(d) {
+                document.querySelector('[data-instit-stat="membros"]').textContent = fmt(d.membros);
+                document.querySelector('[data-instit-stat="acessos"]').textContent = fmt(d.acessos);
+                ['finalizados', 'analise', 'adiado', 'emissao', 'solicitacao', 'vencidos'].forEach(function (s) {
+                    var el = document.querySelector('[data-instit-filtro="' + s + '"]');
+                    if (el) {
+                        el.textContent = fmt(d.filtros[s]);
+                    }
+                });
+
+                var avl = document.getElementById('instit-avl');
+                avl.innerHTML = '';
+                if (!d.avl.length) {
+                    avl.innerHTML = '<div class="empty-note">Nenhuma AVL registrada.</div>';
+                }
+                d.avl.forEach(function (r) {
+                    var row = document.createElement('div');
+                    row.className = 'acc-row';
+                    row.innerHTML =
+                        '<span class="acc-row-title">' + escapeHtml(r.titulo || 'Licença Alquirves') + '</span>' +
+                        '<span class="acc-row-sub">' + escapeHtml(r.licenciado || '—') + ' · <span class="acc-status">' + statusLabel(r.status) + '</span></span>' +
+                        (r.validade ? '<span class="acc-row-sub">Validade: ' + escapeHtml(r.validade) + '</span>' : '');
+                    avl.appendChild(row);
+                });
+
+                var membros = document.getElementById('instit-membros');
+                membros.innerHTML = '';
+                if (!d.contas.length && !d.grupos.length) {
+                    membros.innerHTML = '<div class="empty-note">Nenhum dado disponível.</div>';
+                }
+                d.grupos.forEach(function (g) {
+                    var row = document.createElement('div');
+                    row.className = 'acc-row';
+                    row.innerHTML =
+                        '<span class="acc-row-title">' + escapeHtml(g.name) + '</span>' +
+                        '<span class="acc-row-sub">GID integrado · <span class="acc-status">' + statusLabel('finalizado') + '</span></span>';
+                    membros.appendChild(row);
+                });
+
+                renderInstitGroup(d.advertencias || []);
+            }
+
+            var institLocalByGroup = {};
+            var institCurrentGroup = null;
+
+            function renderInstitGroup(list) {
+                var titleEl = document.getElementById('instit-group-titulo');
+                var gidEl = document.getElementById('instit-group-gid');
+                institLocalByGroup = {};
+                list.forEach(function (w) {
+                    if (w.tipo === 'local' && w.group) {
+                        (institLocalByGroup[w.group] = institLocalByGroup[w.group] || []).push(w);
+                    }
+                });
+                var names = Object.keys(institLocalByGroup)
+                    .sort(function (a, b) { return institLocalByGroup[b].length - institLocalByGroup[a].length; });
+                institCurrentGroup = names.length ? names[0] : null;
+                if (titleEl) titleEl.textContent = institCurrentGroup || 'Sem grupos locais';
+                if (gidEl) {
+                    var first = institCurrentGroup ? institLocalByGroup[institCurrentGroup][0] : null;
+                    var gid = (first && first.gid) || (institCurrentGroup ? institCurrentGroup : '');
+                    gidEl.textContent = institCurrentGroup ? ('#' + String(gid).split('@')[0].slice(-6)) : '';
+                }
+                institRenderAdvertencias((institCurrentGroup && institLocalByGroup[institCurrentGroup]) || []);
+            }
+
+            function institMenuSelect(key) {
+                document.querySelectorAll('.group-menu .menu-item').forEach(function (m) {
+                    m.classList.remove('active');
+                });
+                var el = document.querySelector('.group-menu .menu-item[data-instit-menu="' + key + '"]');
+                if (el) el.classList.add('active');
+                var wrap = document.getElementById('instit-advertencias');
+                if (!wrap) return;
+                if (key === 'adv') {
+                    institRenderAdvertencias((institCurrentGroup && institLocalByGroup[institCurrentGroup]) || []);
+                } else {
+                    wrap.innerHTML = '<div class="empty-note">Nenhum dado disponível para esta seção.</div>';
+                }
+            }
+
+            document.querySelectorAll('.group-menu .menu-item').forEach(function (m) {
+                m.onclick = function () { institMenuSelect(m.getAttribute('data-instit-menu')); };
+            });
+
+            function institFormatDate(d) {
+                if (!d) return '—';
+                var date = new Date(d);
+                if (isNaN(date.getTime())) return '—';
+                function p(n) { return n < 10 ? '0' + n : '' + n; }
+                var days = Math.floor((Date.now() - date.getTime()) / 86400000);
+                var tail = days <= 0 ? 'hoje' : (days === 1 ? '1d' : days + 'd');
+                return p(date.getDate()) + '/' + p(date.getMonth() + 1) + '/' + date.getFullYear() +
+                    ' às ' + p(date.getHours()) + ':' + p(date.getMinutes()) + ' • ' + tail;
+            }
+
+            function renderInstitAdvertencias(list) {
+                var wrap = document.getElementById('instit-advertencias');
+                if (!wrap) return;
+                wrap.innerHTML = '';
+                if (!list.length) {
+                    wrap.innerHTML = '<div class="empty-note">Nenhuma advertência registrada.</div>';
+                    return;
+                }
+                list.forEach(function (w) {
+                    var card = document.createElement('div');
+                    card.className = 'warning-card';
+                    var typeTag = w.tipo === 'global' ? ' (Global)' : '';
+                    card.innerHTML =
+                        '<div class="warning-header">' +
+                        '<div class="user-info">' +
+                        '<div class="user-avatar-sm"></div>' +
+                        '<span class="user-name-sm">' + escapeHtml(w.name) + '</span>' +
+                        '<span class="user-id-sm">#' + escapeHtml(w.acdmId || '—') + '</span>' +
+                        '<span class="warning-id">' + escapeHtml(w.id || '') + typeTag + '</span>' +
+                        '</div>' +
+                        '<svg class="icon-clock" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>' +
+                        '</div>' +
+                        '<div class="warning-text-box">' + escapeHtml(w.reason || '—') + '</div>' +
+                        '<div class="warning-footer">' +
+                        '<span class="warning-author">Por: <span class="warning-author-highlight">' + escapeHtml(w.admin || '—') + '</span></span>' +
+                        '<span>' + institFormatDate(w.date) + '</span>' +
+                        '</div>';
+                    wrap.appendChild(card);
+                });
+            }
+
+            var institData = null;
+
+            fetch('/alrquives/instit/dados')
+                .then(function (r) { return r.json(); })
+                .then(function (d) { institData = d; renderInstit(d); })
+                .catch(function () { });
+
+            /* ============ INSTIT: CARGOS E ACESS (TRI) ============ */
+            var INSTIT_MODS = ['Gerenciamento', 'AutoMate', 'WebVision', 'Segurança', 'Recreação', 'Personalização'];
+            var INSTIT_CMDS = ['Advertência', 'Restrição', 'Banimento', 'Banimento geral', 'Registro', 'Marcar todos', 'Fechar grupo', 'Abrir grupo', 'Remover Adv.', 'Remover Restr.', 'Adicionar Notas', 'Remover Notas', 'Deletar p/ todos', 'Matriz Oráculo', 'Alterar grupo img', 'Alterar descrição'];
+            var TRI_CYCLE = { red: 'blue', blue: 'yellow', yellow: 'red' };
+
+            function institAcessVazio() {
+                var acess = { mods: {}, cmds: {}, categs: {} };
+                INSTIT_MODS.forEach(function (m) { acess.mods[m] = 'red'; acess.categs[m] = false; });
+                INSTIT_CMDS.forEach(function (c) { acess.cmds[c] = 'red'; });
+                return acess;
+            }
+
+            function institSeed() {
+                var acess = institAcessVazio();
+                ['Gerenciamento', 'AutoMate', 'Segurança', 'Recreação', 'Personalização'].forEach(function (m) { acess.categs[m] = true; });
+                acess.categs['WebVision'] = false;
+                acess.cmds['Banimento'] = 'blue';
+                acess.cmds['Banimento geral'] = 'yellow';
+                return { id: 'membro', name: 'Membro', fixed: true, members: [], acess: acess, gid: '', acdmId: '' };
+            }
+
+            function institLoadLocal() {
+                try {
+                    var parsed = JSON.parse(localStorage.getItem('alquirves_instit_cargos') || 'null');
+                    if (parsed && Array.isArray(parsed.cargos)) {
+                        return institMigrate(parsed);
+                    }
+                } catch (e) { }
+                return { cargos: [institSeed()] };
+            }
+
+            function institMigrate(obj) {
+                obj.cargos.forEach(function (c) {
+                    if (!Array.isArray(c.members)) c.members = [];
+                    if (!c.acess || !c.acess.mods) c.acess = institAcessVazio();
+                    if (!c.acess.categs) c.acess.categs = {};
+                    if (typeof c.gid !== 'string') c.gid = '';
+                    if (typeof c.acdmId !== 'string') c.acdmId = '';
+                });
+                if (!obj.cargos.some(function (c) { return c.fixed; })) {
+                    obj.cargos.unshift(institSeed());
+                }
+                return obj;
+            }
+
+            var institCargos = institLoadLocal();
+            var institCurrentId = null;
+
+            function institSaveLocal() {
+                try { localStorage.setItem('alquirves_instit_cargos', JSON.stringify(institCargos)); } catch (e) { }
+            }
+
+            function institSave() {
+                institSaveLocal();
+                fetch('/alrquives/instit/cargos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cargos: institCargos.cargos })
+                }).catch(function () { });
+            }
+
+            function institCargo(id) {
+                return institCargos.cargos.filter(function (c) { return c.id === id; })[0] || null;
+            }
+
+            function institTriIcon(color) {
+                return '<svg class="puzzle pz-' + color + '" viewBox="0 0 24 24"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-2 .9-2 2v4H.5c-1.38 0-2.5 1.12-2.5 2.5S-1.12 16 .5 16H2v4c0 1.1.9 2 2 2h4v1.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V22h4c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/></svg>';
+            }
+
+            window.institTriCycle = function (svg) {
+                var row = svg.closest('.tri-row');
+                if (!row) return;
+                var type = row.getAttribute('data-type');
+                var key = row.getAttribute('data-key');
+                var c = institCargo(institCurrentId);
+                if (!c) return;
+                var cur = c.acess[type][key];
+                var next = TRI_CYCLE[cur] || 'red';
+                c.acess[type][key] = next;
+                institSave();
+                svg.setAttribute('class', 'puzzle pz-' + next);
+            };
+
+            function institRenderCargos() {
+                var list = document.getElementById('instit-cargos');
+                list.innerHTML = '';
+                institCargos.cargos.forEach(function (c) {
+                    var row = document.createElement('div');
+                    row.className = 'cargo-row';
+
+                    var name = document.createElement('span');
+                    name.className = 'cargo-name';
+                    name.textContent = c.name;
+
+                    var actions = document.createElement('div');
+                    actions.className = 'cargo-actions';
+
+                    if (!c.fixed) {
+                        var trash = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                        trash.setAttribute('class', 'icon-trash');
+                        trash.setAttribute('viewBox', '0 0 24 24');
+                        trash.innerHTML = '<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>';
+                        trash.onclick = function (e) {
+                            e.stopPropagation();
+                            if (confirm('Excluir o cargo "' + c.name + '"?')) {
+                                institCargos.cargos = institCargos.cargos.filter(function (x) { return x.id !== c.id; });
+                                institSave();
+                                institRenderCargos();
+
+                                fetch('/alrquives/instit/cargos')
+                                    .then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); })
+                                    .then(function (d) {
+                                        if (d && Array.isArray(d.cargos)) {
+                                            if (d.cargos.length) {
+                                                institCargos = institMigrate({ cargos: d.cargos });
+                                                institSaveLocal();
+                                            } else {
+                                                institSave();
+                                            }
+                                            institRenderCargos();
+                                        }
+                                    })
+                                    .catch(function () { institRenderCargos(); });
+                            }
+                        };
+                        actions.appendChild(trash);
+                    }
+
+                    if (!c.fixed) {
+                        var plus = document.createElement('div');
+                        plus.className = 'cargo-plus';
+                        plus.textContent = '+';
+                        plus.onclick = function (e) {
+                            e.stopPropagation();
+                            institOpenMembers(c.id);
+                        };
+                        actions.appendChild(plus);
+                    }
+
+                    var btn = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    btn.setAttribute('class', 'cargo-config');
+                    btn.setAttribute('viewBox', '0 0 24 24');
+                    btn.innerHTML = '<path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>';
+                    btn.onclick = function (e) {
+                        e.stopPropagation();
+                        institOpenAcess(c.id);
+                    };
+                    actions.appendChild(btn);
+
+                    row.appendChild(name);
+                    row.appendChild(actions);
+                    list.appendChild(row);
+                });
+            }
+
+            function institRenderAcess() {
+                var c = institCargo(institCurrentId);
+                if (!c) return;
+                var a = c.acess;
+                if (!a.categs) a.categs = {};
+
+                var mods = document.getElementById('instit-mods');
+                mods.innerHTML = '';
+                INSTIT_MODS.forEach(function (m) {
+                    var el = document.createElement('div');
+                    el.className = 'mod-item';
+                    if (a.categs[m]) el.classList.add('active');
+                    el.innerHTML = '<span>' + escapeHtml(m) + '</span>';
+                    el.onclick = function () {
+                        a.categs[m] = !a.categs[m];
+                        institSave();
+                        el.classList.toggle('active');
+                    };
+                    mods.appendChild(el);
+                });
+
+                var cmds = document.getElementById('instit-cmds');
+                cmds.innerHTML = '';
+                INSTIT_CMDS.forEach(function (cmd) {
+                    var el = document.createElement('div');
+                    el.className = 'cmd-btn tri-row';
+                    el.setAttribute('data-type', 'cmds');
+                    el.setAttribute('data-key', cmd);
+                    el.innerHTML = '<span>' + escapeHtml(cmd) + '</span>' + institTriIcon(a.cmds[cmd]);
+                    el.onclick = function () {
+                        var puzzle = el.querySelector('.puzzle');
+                        if (puzzle) institTriCycle(puzzle);
+                    };
+                    cmds.appendChild(el);
+                });
+            }
+
+            function institRenderChips(c) {
+                var chips = document.getElementById('instit-acess-chips');
+                chips.innerHTML = '';
+
+                var base = document.createElement('span');
+                base.className = 'chip acdm';
+                base.innerHTML = '<input id="instit-acess-acdm" class="chip-inline" placeholder="ACDM ID" maxlength="20"> <svg class="icon-check" viewBox="0 0 24 24" style="width:12px; height:12px; cursor:pointer;" onclick="institAddMembro()"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
+                chips.appendChild(base);
+
+                var acdmInput = chips.querySelector('#instit-acess-acdm');
+                if (acdmInput) acdmInput.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') institAddMembro();
+                });
+
+                c.members.forEach(function (m) {
+                    var chip = document.createElement('span');
+                    chip.className = 'chip white';
+                    chip.innerHTML = escapeHtml(m.name) + ' <span class="purple-id" style="font-weight:500;">#' + escapeHtml(m.id) + '</span>';
+                    var del = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    del.setAttribute('class', 'icon-trash');
+                    del.setAttribute('viewBox', '0 0 24 24');
+                    del.setAttribute('style', 'width:12px; height:12px;');
+                    del.innerHTML = '<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>';
+                    del.onclick = function (e) {
+                        e.stopPropagation();
+                        c.members = c.members.filter(function (x) { return x.id !== m.id; });
+                        institSave();
+                        institRenderChips(c);
+                    };
+                    chip.appendChild(del);
+                    chips.appendChild(chip);
+                });
+            }
+
+            window.institOpenAcess = function (id, mode) {
+                institCurrentId = id;
+                var c = institCargo(id);
+                if (!c) return;
+                mode = mode || 'perms';
+                document.getElementById('instit-acess-titulo').textContent = c.name;
+                institRenderChips(c);
+                institWireInputs(c);
+                institRenderAcess();
+                document.getElementById('instit-cargos-view').style.display = 'none';
+                document.getElementById('instit-acess-view').style.display = 'block';
+                document.getElementById('instit-members-section').style.display = mode === 'members' ? 'block' : 'none';
+                document.getElementById('instit-perms-section').style.display = mode === 'perms' ? 'block' : 'none';
+                var card = document.querySelector('#instit-acess-view .card-3d');
+                if (card) card.classList.toggle('no-sub', mode !== 'members');
+                var sub = card ? card.querySelector('.banner-sub') : null;
+                if (sub) sub.style.display = mode === 'members' ? 'flex' : 'none';
+                if (mode === 'members') {
+                    var input = document.getElementById('instit-acess-acdm');
+                    if (input) input.focus();
+                }
+            };
+
+            function institWireInputs(c) {
+                var gid = document.getElementById('instit-acess-gid');
+                if (gid) {
+                    gid.value = c.gid || '';
+                    gid.oninput = function () { c.gid = gid.value; institSave(); };
+                }
+            }
+
+            window.institAddMembro = function () {
+                var input = document.getElementById('instit-acess-acdm');
+                var c = institCargo(institCurrentId);
+                if (!c || !input) return;
+                var val = input.value.trim();
+                if (!val) { input.focus(); return; }
+                if (c.members.some(function (m) { return m.id === val; })) { input.value = ''; return; }
+                c.members.push({ id: val, name: institMemberName(val) });
+                institSave();
+                input.value = '';
+                institRenderChips(c);
+            };
+
+            function institMemberName(id) {
+                if (institData && institData.contas) {
+                    for (var i = 0; i < institData.contas.length; i++) {
+                        if (String(institData.contas[i].acdmId) === String(id)) {
+                            return institData.contas[i].name || id;
+                        }
+                    }
+                }
+                if (dashboard && dashboard.users) {
+                    for (var j = 0; j < dashboard.users.length; j++) {
+                        if (String(dashboard.users[j].acdmId) === String(id)) {
+                            return dashboard.users[j].name || id;
+                        }
+                    }
+                }
+                return id;
+            }
+
+            window.institOpenMembers = function (id) {
+                institOpenAcess(id, 'members');
+            };
+
+            window.institBackCargos = function () {
+                institCurrentId = null;
+                document.getElementById('instit-acess-view').style.display = 'none';
+                document.getElementById('instit-cargos-view').style.display = 'block';
+                institRenderCargos();
+            };
+
+            window.institToggleCreate = function () {
+                var header = document.querySelector('#screen-instit .accordion-item.active .accordion-header');
+                if (!header) return;
+                header.classList.toggle('create-open');
+                if (header.classList.contains('create-open')) {
+                    var input = document.getElementById('instit-cargo-nome');
+                    if (input) input.focus();
+                }
+            };
+
+            window.institConfirmCreate = function () {
+                var input = document.getElementById('instit-cargo-nome');
+                if (!input) return;
+                var nome = input.value.trim();
+                if (!nome) { input.focus(); return; }
+                if (institCargos.cargos.some(function (c) { return c.name === nome; })) { input.value = ''; return; }
+                var novo = { id: 'cargo-' + Date.now(), name: nome, fixed: false, members: [], acess: institAcessVazio(), gid: '', acdmId: '' };
+                institCargos.cargos.push(novo);
+                institSave();
+                input.value = '';
+                var header = document.querySelector('#screen-instit .accordion-item.active .accordion-header');
+                if (header) header.classList.remove('create-open');
+                institRenderCargos();
+                institOpenAcess(novo.id);
+            };
+
+            var criaInput = document.getElementById('instit-cargo-nome');
+            if (criaInput) criaInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') institConfirmCreate();
+            });
+            if (criaInput) criaInput.addEventListener('blur', function () {
+                var header = document.querySelector('#screen-instit .accordion-item.active .accordion-header');
+                if (header) header.classList.remove('create-open');
+            });
+
+            institRenderCargos();
+
+            /* ==================== EMISSÃO (AVL E CERTIFICER) ==================== */
+            function emitir(payload, form) {
+                var btn = form.querySelector('button[type="submit"]');
+                var original = btn.textContent;
+                btn.disabled = true;
+                btn.textContent = 'Enviando...';
+                fetch('/alrquives/emitir', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
+                        if (data.success) {
+                            form.reset();
+                            showScreen('screen-home');
+                            return fetch('/alrquives/dados').then(function (r) { return r.json(); }).then(renderDashboard);
+                        }
+                        alert(data.error || 'Erro ao emitir.');
+                    })
+                    .catch(function () { alert('Erro de conexão. Tente novamente.'); })
+                    .finally(function () {
+                        btn.disabled = false;
+                        btn.textContent = original;
+                    });
+            }
+
+            var licencasForm = document.querySelector('#screen-licencas form');
+            if (licencasForm) {
+                licencasForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    var fd = new FormData(licencasForm);
+                    emitir({
+                        tipo: 'avl',
+                        titulo: fd.get('tipo') || 'Licença Alquirves',
+                        licenciado: fd.get('licenciado'),
+                        licenciante: fd.get('licenciante'),
+                        validade: fd.get('validade')
+                    }, licencasForm);
+                });
+            }
+
+            var certForm = document.querySelector('#screen-certificer form');
+            if (certForm) {
+                certForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    var fd = new FormData(certForm);
+                    emitir({
+                        tipo: 'cert',
+                        titulo: 'Certificado Academy',
+                        outorgado: fd.get('outorgado'),
+                        licenciante: fd.get('representante'),
+                        organizacao: fd.get('organizacao'),
+                        validade: fd.get('validade')
+                    }, certForm);
+                });
+            }
 
             /* ==================== SWIPER (HOME) ==================== */
             var swiper = null;
@@ -1297,11 +3507,47 @@
                 }
             }
 
+            var routeMap = {
+                'screen-home': 'home',
+                'screen-instit': 'instit',
+                'screen-licencas': 'avl',
+                'screen-certificer': 'ficer',
+                'screen-assinermos': 'assinermos'
+            };
+
+            var screenFromPath = {
+                home: 'screen-home',
+                instit: 'screen-instit',
+                avl: 'screen-licencas',
+                ficer: 'screen-certificer',
+                assinermos: 'screen-assinermos'
+            };
+
+            function pathToScreen() {
+                var parts = (window.location.pathname || '').split('/').filter(Boolean);
+                var last = parts[parts.length - 1];
+                return screenFromPath[last] || 'screen-home';
+            }
+
+            function navigate(id) {
+                showScreen(id);
+                var slug = routeMap[id];
+                if (slug) {
+                    history.pushState(null, '', ALQUIRVES_BASE + '/' + slug);
+                }
+            }
+
             navBtns.forEach(function (b) {
                 b.addEventListener('click', function () {
-                    showScreen(b.getAttribute('data-screen'));
+                    navigate(b.getAttribute('data-screen'));
                 });
             });
+
+            window.addEventListener('popstate', function () {
+                showScreen(pathToScreen());
+            });
+
+            showScreen(pathToScreen());
 
             /* ==================== INPUT DE ARQUIVO (ASSINERMOS) ==================== */
             var fileInput = document.getElementById('doc-upload');
@@ -1374,4 +3620,5 @@
     </script>
 
 </body>
+
 </html>

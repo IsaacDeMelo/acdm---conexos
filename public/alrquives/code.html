@@ -175,6 +175,20 @@
             transform: scale(0.98);
         }
 
+        /* ==================== ALERTA ==================== */
+        .alerta {
+            display: none;
+            background-color: #3a1010;
+            border: 1px solid #833;
+            color: #e66;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
     </style>
 </head>
 
@@ -194,9 +208,11 @@
             <h2 class="form-title">Acess Code</h2>
             <div class="purple-line"></div> <!-- Linha agora é roxa -->
 
-            <form action="#" method="POST">
+            <div id="alerta" class="alerta"></div>
+
+            <form action="#" method="POST" id="form-code">
                 <!-- Único Input -->
-                <input type="text" class="input-pill" placeholder="Código de confirmação enviado pelo WhatsApp" id="acess-code">
+                <input type="text" class="input-pill" placeholder="Código de confirmação enviado pelo WhatsApp" id="acess-code" autocomplete="one-time-code">
                 
                 <!-- Botão agora é Violeta -->
                 <button type="submit" class="btn-submit" id="btn-code">Acessar</button>
@@ -204,6 +220,63 @@
         </div>
 
     </main>
+
+    <script>
+        var alertaEl = document.getElementById('alerta');
+
+        function mostrarAlerta(msg) {
+            alertaEl.textContent = msg;
+            alertaEl.style.display = 'block';
+        }
+
+        var acdmId = localStorage.getItem('alquirves_acdm');
+        if (!acdmId) {
+            window.location.href = '/alrquives/login.html';
+        }
+
+        if (localStorage.getItem('alquirves_session')) {
+            window.location.href = '/alrquives/home';
+        }
+
+        document.getElementById('form-code').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            var btn = document.getElementById('btn-code');
+            var codigo = document.getElementById('acess-code').value.trim();
+
+            if (!codigo || codigo.length !== 6) {
+                mostrarAlerta('O codigo deve ter 6 digitos.');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Verificando...';
+
+            try {
+                var res = await fetch('/alrquives/verificar-codigo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: acdmId, codigo: codigo })
+                });
+                var data = await res.json();
+
+                if (!res.ok) {
+                    mostrarAlerta(data.error || 'Codigo invalido.');
+                    btn.disabled = false;
+                    btn.textContent = 'Acessar';
+                    return;
+                }
+
+                localStorage.removeItem('alquirves_acdm');
+                localStorage.setItem('alquirves_session', acdmId);
+                window.location.href = data.redirect || '/alrquives/home';
+            } catch (err) {
+                mostrarAlerta('Erro de conexao. Tente novamente.');
+                btn.disabled = false;
+                btn.textContent = 'Acessar';
+            }
+        });
+    </script>
 
 </body>
 </html>

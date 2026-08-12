@@ -179,6 +179,20 @@
             transform: scale(0.98);
         }
 
+        /* ==================== ALERTA ==================== */
+        .alerta {
+            display: none;
+            background-color: #3a1010;
+            border: 1px solid #833;
+            color: #e66;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
     </style>
 </head>
 
@@ -198,15 +212,75 @@
             <h2 class="form-title">Acess Alquirves</h2>
             <div class="red-line"></div>
 
-            <form action="#" method="POST">
-                <input type="text" class="input-pill" placeholder="ID" id="acess-id">
-                <input type="password" class="input-pill" placeholder="Senha" id="acess-senha">
+            <div id="alerta" class="alerta"></div>
+
+            <form action="#" method="POST" id="form-acess">
+                <input type="text" class="input-pill" placeholder="ACDM ID" id="acess-id" autocomplete="username">
+                <input type="password" class="input-pill" placeholder="Senha" id="acess-senha" autocomplete="current-password">
                 
                 <button type="submit" class="btn-submit" id="btn-acess">Acessar ou Cadastrar</button>
             </form>
         </div>
 
     </main>
+
+    <script>
+        var alertaEl = document.getElementById('alerta');
+
+        function mostrarAlerta(msg) {
+            alertaEl.textContent = msg;
+            alertaEl.style.display = 'block';
+        }
+
+        if (localStorage.getItem('alquirves_session')) {
+            fetch('/alrquives/me')
+                .then(function (r) {
+                    if (r.ok) {
+                        window.location.href = '/alrquives/home';
+                    } else {
+                        localStorage.removeItem('alquirves_session');
+                    }
+                })
+                .catch(function () {});
+        }
+
+        document.getElementById('form-acess').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            var btn = document.getElementById('btn-acess');
+            var id = document.getElementById('acess-id').value.trim();
+            var senha = document.getElementById('acess-senha').value;
+
+            if (!id) { mostrarAlerta('Informe o seu ACDM ID.'); return; }
+            if (!senha || senha.length < 4) { mostrarAlerta('A senha deve ter no minimo 4 caracteres.'); return; }
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+
+            try {
+                var res = await fetch('/alrquives/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id, senha: senha })
+                });
+                var data = await res.json();
+
+                if (!res.ok) {
+                    mostrarAlerta(data.error || 'Erro ao acessar.');
+                    btn.disabled = false;
+                    btn.textContent = 'Acessar ou Cadastrar';
+                    return;
+                }
+
+                localStorage.setItem('alquirves_acdm', id.toUpperCase());
+                window.location.href = '/alrquives/code.html';
+            } catch (err) {
+                mostrarAlerta('Erro de conexao. Tente novamente.');
+                btn.disabled = false;
+                btn.textContent = 'Acessar ou Cadastrar';
+            }
+        });
+    </script>
 
 </body>
 </html>

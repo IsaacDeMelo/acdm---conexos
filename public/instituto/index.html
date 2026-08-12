@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instituto Academy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-deep: #0a0510;
+            --text-white: #ffffff;
+            --text-gold: #bda15f;
+            --text-gray: #a39ca8;
+            --card-bg: #150d1e;
+            --card-border: #2a1f36;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--bg-deep);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            text-align: center;
+            padding: 30px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            height: 110px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.6));
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .coming-soon {
+            font-size: 0.8rem;
+            color: var(--text-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .divider {
+            width: 70px;
+            height: 2px;
+            background-color: var(--text-gold);
+            border-radius: 2px;
+            margin: 10px auto 22px auto;
+        }
+
+        .sub {
+            font-size: 0.78rem;
+            color: var(--text-gray);
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 320px;
+        }
+
+        .projects {
+            width: 100%;
+            margin-top: 34px;
+        }
+
+        .projects-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-gold);
+            margin-bottom: 14px;
+        }
+
+        .project-card {
+            width: 100%;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-align: left;
+            text-decoration: none;
+            color: var(--text-white);
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--text-gold);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            object-fit: contain;
+            background-color: #1a1124;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+
+        .project-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .project-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .project-desc {
+            font-size: 0.65rem;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
+        .project-arrow {
+            color: var(--text-gold);
+            font-size: 1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <div class="brand">
+            <img src="/alrquives/src/logo_grande.png" alt="Logo Instituto Academy" class="logo">
+            <h1>Instituto Academy</h1>
+        </div>
+
+        <div class="coming-soon">Em breve</div>
+        <div class="divider"></div>
+        <p class="sub">A página principal do instituto está sob desenvolvimento.<br>Enquanto isso, conheça os projetos ativos:</p>
+
+        <section class="projects">
+            <div class="projects-title">Projetos Ativos</div>
+
+            <a class="project-card" href="/alrquives">
+                <img src="/alrquives/src/logo_grande.png" alt="Alquirves" class="project-logo">
+                <div class="project-info">
+                    <span class="project-name">Alquirves</span>
+                    <span class="project-desc">Licenças e certificados da Academy</span>
+                </div>
+                <span class="project-arrow">›</span>
+            </a>
+        </section>
+    </main>
+
+</body>
+
+</html>
